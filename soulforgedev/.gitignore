@@ -1,0 +1,5 @@
+dist
+tempdist
+
+*.pyc
+*.log

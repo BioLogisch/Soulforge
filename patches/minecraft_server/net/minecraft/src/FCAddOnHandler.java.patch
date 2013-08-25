@@ -1,0 +1,42 @@
+--- ../src_base/minecraft_server/net/minecraft/src/FCAddOnHandler.java
++++ ../src/minecraft_server/net/minecraft/src/FCAddOnHandler.java
+@@ -8,7 +8,10 @@
+ import java.util.logging.Level;
+ import java.util.logging.Logger;
+ import java.util.logging.SimpleFormatter;
++
+ import net.minecraft.server.MinecraftServer;
++import soulforge.oredict.OreDictionary;
++import soulforge.utils.ConfigFileManager;
+ 
+ public class FCAddOnHandler
+ {
+@@ -29,6 +32,8 @@
+         {
+             InitializeLogger();
+             LogMessage("...Add-On Handler Initializing...");
++            OreDictionary.getOreName(0);
++            InitializeConfigs();
+             PreInitializeMods();
+             Iterator var0 = m_ModList.iterator();
+ 
+@@ -74,6 +79,19 @@
+ 
+         m_Logger.fine(var0);
+     }
++    
++    public static void InitializeConfigs()
++    {
++        Iterator var0 = m_ModList.iterator();
++
++        while (var0.hasNext())
++        {
++            FCAddOn var1 = (FCAddOn)var0.next();
++            var1.InitializeConfigs();
++        }
++        
++    	ConfigFileManager.setDefaultValues();
++    }
+ 
+     public static void PreInitializeMods()
+     {

@@ -1,0 +1,148 @@
+--- ../src_base/minecraft_server/net/minecraft/src/Block.java
++++ ../src/minecraft_server/net/minecraft/src/Block.java
+@@ -5,6 +5,8 @@
+ 
+ public class Block
+ {
++    protected static int[] blockFireSpreadSpeed = new int[4096];
++    protected static int[] blockFlammability = new int[4096];
+     /**
+      * used as foreach item, if item.tab = current tab, display it on the screen
+      */
+@@ -309,7 +311,7 @@
+     /**
+      * Sets the footstep sound for the block. Returns the object for convenience in constructing.
+      */
+-    protected Block setStepSound(StepSound par1StepSound)
++    public Block setStepSound(StepSound par1StepSound)
+     {
+         this.stepSound = par1StepSound;
+         return this;
+@@ -1384,7 +1386,7 @@
+         Item.itemsList[cobblestoneWall.blockID] = (new ItemMultiTextureTile(cobblestoneWall.blockID - 256, cobblestoneWall, BlockWall.types)).setUnlocalizedName("cobbleWall");
+         Item.itemsList[anvil.blockID] = (new ItemAnvilBlock(anvil)).setUnlocalizedName("anvil");
+ 
+-        for (int var0 = 0; var0 < 256; ++var0)
++        for (int var0 = 0; var0 < 4096; ++var0)
+         {
+             if (blocksList[var0] != null)
+             {
+@@ -1428,4 +1430,118 @@
+         canBlockGrass[0] = true;
+         StatList.initBreakableStats();
+     }
++    
++    /**
++     * Chance that fire will spread and consume this block.
++     * 300 being a 100% chance, 0, being a 0% chance.
++     *
++     * @param world The current world
++     * @param x The blocks X position
++     * @param y The blocks Y position
++     * @param z The blocks Z position
++     * @param metadata The blocks current metadata
++     * @param face The face that the fire is coming from
++     * @return A number ranging from 0 to 300 relating used to determine if the block will be consumed by fire
++     */
++    public int getFlammability(IBlockAccess world, int x, int y, int z, int metadata)
++    {
++        return blockFlammability[blockID];
++    }
++
++    /**
++     * Called when fire is updating, checks if a block face can catch fire.
++     *
++     *
++     * @param world The current world
++     * @param x The blocks X position
++     * @param y The blocks Y position
++     * @param z The blocks Z position
++     * @param metadata The blocks current metadata
++     * @param face The face that the fire is coming from
++     * @return True if the face can be on fire, false otherwise.
++     */
++    public boolean isFlammable(IBlockAccess world, int x, int y, int z, int metadata)
++    {
++        return getFlammability(world, x, y, z, metadata) > 0;
++    }
++
++    /**
++     * Called when fire is updating on a neighbor block.
++     * The higher the number returned, the faster fire will spread around this block.
++     *
++     * @param world The current world
++     * @param x The blocks X position
++     * @param y The blocks Y position
++     * @param z The blocks Z position
++     * @param metadata The blocks current metadata
++     * @param face The face that the fire is coming from
++     * @return A number that is used to determine the speed of fire growth around the block
++     */
++    public int getFireSpreadSpeed(World world, int x, int y, int z, int metadata)
++    {
++        return blockFireSpreadSpeed[blockID];
++    }
++    
++    /**
++     * Called by BlockFire to setup the burn values of vanilla blocks.
++     * @param id The block id
++     * @param encouragement How much the block encourages fire to spread
++     * @param flammability how easy a block is to catch fire
++     */
++    public static void setBurnProperties(int id, int encouragement, int flammability)
++    {
++        blockFireSpreadSpeed[id] = encouragement;
++        blockFlammability[id] = flammability;
++    }
++    
++    /**
++     * Called when a leaf should start its decay process.
++     *
++     * @param world The current world
++     * @param x X Position
++     * @param y Y Position
++     * @param z Z Position
++     */
++    public void beginLeavesDecay(World world, int x, int y, int z){}
++
++    /**
++     * Determines if this block can prevent leaves connected to it from decaying.
++     *
++     * @param world The current world
++     * @param x X Position
++     * @param y Y Position
++     * @param z Z Position
++     * @return true if the presence this block can prevent leaves from decaying.
++     */
++    public boolean canSustainLeaves(World world, int x, int y, int z)
++    {
++        return false;
++    }
++
++    /**
++     * Determines if this block is considered a leaf block, used to apply the leaf decay and generation system.
++     *
++     * @param world The current world
++     * @param x X Position
++     * @param y Y Position
++     * @param z Z Position
++     * @return true if this block is considered leaves.
++     */
++    public boolean isLeaves(World world, int x, int y, int z)
++    {
++        return false;
++    }
++    
++    /**
++    *
++    * @param world The current world
++    * @param x X Position
++    * @param y Y Position
++    * @param z Z Position
++    * @return  true if the block is wood (logs)
++    */
++   public boolean isWood(World world, int x, int y, int z)
++   {
++        return false;
++   }
+ }
