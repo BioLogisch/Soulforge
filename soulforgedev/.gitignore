@@ -3,3 +3,5 @@ tempdist
 
 *.pyc
 *.log
+
+.DS_Store
