@@ -16,19 +16,19 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>soulforgesrc</name>
-			<type>2</type>
-			<location>PARENT-1-MCP_LOC/src/minecraft</location>
-		</link>
-		<link>
 			<name>common</name>
 			<type>2</type>
-			<location>PARENT-1-MCP_LOC/src/common</location>
+			<locationURI>SF_ROOT/src/common</locationURI>
 		</link>
 		<link>
 			<name>jars</name>
 			<type>2</type>
 			<locationURI>MCP_LOC/jars</locationURI>
+		</link>
+		<link>
+			<name>soulforgesrc</name>
+			<type>2</type>
+			<locationURI>SF_ROOT/src/minecraft</locationURI>
 		</link>
 		<link>
 			<name>src</name>
@@ -69,6 +69,10 @@
 		<variable>
 			<name>MCP_LOC</name>
 			<value>$%7BPARENT-1-WORKSPACE_LOC%7D</value>
+		</variable>
+		<variable>
+			<name>SF_ROOT</name>
+			<value>$%7BPARENT-3-WORKSPACE_LOC%7D</value>
 		</variable>
 	</variableList>
 </projectDescription>

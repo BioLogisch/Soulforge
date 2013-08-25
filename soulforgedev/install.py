@@ -22,7 +22,10 @@ def soulforge_main(soulforge_dir, mcp_dir):
     reset_logger()
     copytree(os.path.join(mcp_dir, 'src'), os.path.join(mcp_dir, 'src_base')) 
     os.chdir(soulforge_dir) 
-    apply_soulforge_patches(mcp_dir, soulforge_dir, os.path.join(mcp_dir, 'src'), True)  
+    apply_soulforge_patches(mcp_dir, soulforge_dir, os.path.join(mcp_dir, 'src'), True)
+    print 'Copy external libraries'
+    copytree(os.path.join(soulforge_dir, 'lib'), os.path.join(mcp_dir, 'lib'))
+    print 'Setup workspace'
     if os.path.isdir(os.path.join(mcp_dir, 'eclipse')):
         shutil.rmtree(os.path.join(mcp_dir, 'eclipse'))
     copytree(os.path.join(soulforge_dir, 'soulforgedev', 'tmpworkspace'), os.path.join(mcp_dir, 'eclipse')) 
