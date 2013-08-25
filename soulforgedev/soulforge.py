@@ -234,6 +234,7 @@ def unzipandcopybtw(soulforge_dir):
 #==========================================================================
 def movetodist(soulforge_dir):
     basediffdir = os.path.join(soulforge_dir, 'soulforgedev', 'basediff')
+    libdir = os.path.join(soulforge_dir, 'lib')
     nonbtweditsdir = os.path.join(basediffdir, 'nonbtwedits')
     patchesdir = os.path.join(basediffdir, 'patches')
     binarypatcherdir = os.path.join(soulforge_dir, 'soulforgedev', 'binarypatcher')
@@ -248,8 +249,10 @@ def movetodist(soulforge_dir):
     if os.path.exists(os.path.join(binarypatcherdir, 'patches')):
         shutil.rmtree(os.path.join(binarypatcherdir, 'patches'))
     
-    copytree(nonbtweditsdir, os.path.join(binarypatcherdir, 'nonbtwedits')) 
-    copytree(patchesdir, os.path.join(binarypatcherdir, 'patches')) 
+    copytree(nonbtweditsdir, os.path.join(binarypatcherdir, 'nonbtwedits'))
+    copytree(libdir, os.path.join(binarypatcherdir, 'nonbtwedits'))
+
+    copytree(patchesdir, os.path.join(binarypatcherdir, 'patches'))
     copytree(binarypatcherdir, distdir) 
         
     if os.path.isfile(os.path.join(soulforge_dir, 'soulforgedev', 'tempdist', '.gitignore')):
