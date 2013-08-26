@@ -58,6 +58,11 @@ public class ClientHandler implements ISidedHandler {
 	public void finishServerLoading() {
 		// NOOP		
 	}
+
+	@Override
+	public MinecraftServer getServer() {
+		return client.getIntegratedServer();
+	}
 	
     
   

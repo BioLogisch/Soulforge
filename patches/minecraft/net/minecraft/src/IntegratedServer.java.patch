@@ -1,0 +1,20 @@
+--- ../src_base/minecraft/net/minecraft/src/IntegratedServer.java
++++ ../src/minecraft/net/minecraft/src/IntegratedServer.java
+@@ -2,6 +2,8 @@
+ 
+ import java.io.File;
+ import java.io.IOException;
++
++import soulforge.utils.CommonHandler;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.server.MinecraftServer;
+ 
+@@ -101,7 +103,7 @@
+         this.setKeyPair(CryptManager.createNewKeyPair());
+         this.loadAllWorlds(this.getFolderName(), this.getWorldName(), this.theWorldSettings.getSeed(), this.theWorldSettings.getTerrainType(), this.theWorldSettings.func_82749_j());
+         this.setMOTD(this.getServerOwner() + " - " + this.worldServers[0].getWorldInfo().getWorldName());
+-        return true;
++        return CommonHandler.instance().handleServerStarting(this);
+     }
+ 
+     /**

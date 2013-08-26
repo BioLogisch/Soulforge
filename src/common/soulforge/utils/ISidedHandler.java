@@ -10,4 +10,6 @@ public interface ISidedHandler {
 
     public void finishServerLoading();
 
+    public MinecraftServer getServer();
+
 }

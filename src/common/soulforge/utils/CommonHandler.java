@@ -3,6 +3,8 @@ package soulforge.utils;
 import java.util.EnumSet;
 import java.util.List;
 
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.src.DedicatedServer;
 import net.minecraft.src.FCAddOnHandler;
 
 import com.google.common.base.Objects;
@@ -35,6 +37,50 @@ public class CommonHandler {
         sidedDelegate = handler;
        
     }
+    
+   
+    
+    public void handleServerStarted()
+    {
+    	EventRegistry.serverStarted();
+    }
+
+    public void handleServerStopping()
+    {
+    	EventRegistry.serverStopping();
+    }
+    
+
+	public void handleServerStopped() {
+    	EventRegistry.serverStopped();
+	}
+
+    public void onServerStart(MinecraftServer server)
+    {
+        sidedDelegate.beginServerLoading(server);
+    }
+
+    public void onServerStarted()
+    {
+        sidedDelegate.finishServerLoading();
+    }
+    
+    public boolean handleServerStarting(MinecraftServer server)
+    {
+    	EventRegistry.serverStarting(server);
+        return true;
+    }
+    
+    public boolean handleServerAboutToStart(MinecraftServer server) {
+		EventRegistry.serverAboutToStart(server);
+		return true;
+	}
+
+    public MinecraftServer getMinecraftServerInstance()
+    {
+        return sidedDelegate.getServer();
+    }
+
     
     public void rescheduleTicks(Side side)
     {
@@ -99,4 +145,11 @@ public class CommonHandler {
             }
         }
     }
+
+	
+
+    
+    
+
+  
 }

@@ -1,27 +1,18 @@
 package soulforge.utils;
 
-import java.util.Random;
-
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.World;
+import net.minecraft.src.DedicatedServer;
 
 public interface IEventHandler {
 
-	public void onClientTickEnd(boolean paused);
+	public void onServerStarting(MinecraftServer server);
 
-	public void onClientTickStart(boolean paused);
+	public void serverStarted();
 
-	public void onServerWillStart(MinecraftServer server);
-	
-	public void onServerDidStart(MinecraftServer server);
-	
-	public void onServerTickStart();
-	
-	public void onServerTickEnd();
+	public void serverStopping();
 
-	public void onWorldsDidLoad();
-	
-	public void onPostProcessChunk(World world, Random rand, int x, int z);
+	public void serverStopped();
 
-	
+	public void serverAboutToStart(MinecraftServer server);
+
 }
