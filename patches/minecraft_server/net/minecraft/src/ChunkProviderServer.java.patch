@@ -1,0 +1,19 @@
+--- ../src_base/minecraft_server/net/minecraft/src/ChunkProviderServer.java
++++ ../src/minecraft_server/net/minecraft/src/ChunkProviderServer.java
+@@ -6,6 +6,8 @@
+ import java.util.Iterator;
+ import java.util.List;
+ import java.util.Set;
++
++import soulforge.utils.GameRegistry;
+ 
+ public class ChunkProviderServer implements IChunkProvider
+ {
+@@ -223,6 +225,7 @@
+             if (this.serverChunkGenerator != null)
+             {
+                 this.serverChunkGenerator.populate(par1IChunkProvider, par2, par3);
++                GameRegistry.generateWorld(par2, par3, this.worldObj, this.serverChunkGenerator, par1IChunkProvider);
+                 var4.setChunkModified();
+             }
+         }

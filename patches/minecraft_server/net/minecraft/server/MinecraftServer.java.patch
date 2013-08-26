@@ -1,0 +1,56 @@
+--- ../src_base/minecraft_server/net/minecraft/server/MinecraftServer.java
++++ ../src/minecraft_server/net/minecraft/server/MinecraftServer.java
+@@ -11,6 +11,9 @@
+ import java.util.List;
+ import java.util.logging.Level;
+ import java.util.logging.Logger;
++
++import soulforge.utils.CommonHandler;
++import soulforge.utils.Side;
+ import net.minecraft.src.AnvilSaveConverter;
+ import net.minecraft.src.AxisAlignedBB;
+ import net.minecraft.src.CallableIsServerModded;
+@@ -431,6 +434,9 @@
+         {
+             if (this.startServer())
+             {
++            	
++            	CommonHandler.instance().handleServerStarted();
++
+                 long var1 = System.currentTimeMillis();
+ 
+                 for (long var50 = 0L; this.serverRunning; this.serverIsRunning = true)
+@@ -470,6 +476,7 @@
+ 
+                     Thread.sleep(1L);
+                 }
++                CommonHandler.instance().handleServerStopping();
+             }
+             else
+             {
+@@ -510,6 +517,7 @@
+             {
+                 this.stopServer();
+                 this.serverStopped = true;
++                CommonHandler.instance().handleServerStopped();
+             }
+             catch (Throwable var46)
+             {
+@@ -543,7 +551,9 @@
+     protected void tick()
+     {
+         long var1 = System.nanoTime();
++        CommonHandler.instance().rescheduleTicks(Side.SERVER);
+         AxisAlignedBB.getAABBPool().cleanPool();
++        CommonHandler.instance().onPreServerTick();
+         ++this.tickCounter;
+ 
+         if (this.startProfiling)
+@@ -589,6 +599,7 @@
+ 
+         this.theProfiler.endSection();
+         this.theProfiler.endSection();
++        CommonHandler.instance().onPostServerTick();
+     }
+ 
+     public void updateTimeLightAndEntities()
