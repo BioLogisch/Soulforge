@@ -25,7 +25,9 @@ def soulforge_main(soulforge_dir, mcp_dir):
     copytree(os.path.join(soulforge_dir, 'src', 'minecraft'), os.path.join(mcp_dir, 'src', 'minecraft')) 
     copytree(os.path.join(soulforge_dir, 'src', 'common'), os.path.join(mcp_dir, 'src', 'minecraft')) 
     copytree(os.path.join(soulforge_dir, 'src', 'minecraft_server'), os.path.join(mcp_dir, 'src', 'minecraft_server')) 
-    copytree(os.path.join(soulforge_dir, 'src', 'common'), os.path.join(mcp_dir, 'src', 'minecraft_server')) 
+    copytree(os.path.join(soulforge_dir, 'src', 'common'), os.path.join(mcp_dir, 'src', 'minecraft_server'))
+    print 'Copy external libraries'
+    copytree(os.path.join(soulforge_dir, 'lib'), os.path.join(mcp_dir, 'lib'))
     os.chdir(mcp_dir)
     print 'Recompiling'
     recompile(None, False, False)
@@ -43,7 +45,11 @@ def soulforge_main(soulforge_dir, mcp_dir):
     reset_logger()
     os.chdir(soulforge_dir) 
     copytree(os.path.join(mcp_dir, 'src'), os.path.join(mcp_dir, 'src_base')) 
-    apply_mod_patches(mcp_dir, soulforge_dir, os.path.join(mcp_dir, 'src'), True)  
+    apply_mod_patches(mcp_dir, soulforge_dir, os.path.join(mcp_dir, 'src'), True)
+    print 'Setup workspace'
+    if os.path.isdir(os.path.join(mcp_dir, 'eclipse')):
+        shutil.rmtree(os.path.join(mcp_dir, 'eclipse'))
+    copytree(os.path.join(soulforge_dir, 'addondev', 'tmpworkspace'), os.path.join(mcp_dir, 'eclipse'))
     print '=============================== Soulforge Setup Finished ================================='
 
 if __name__ == '__main__':
