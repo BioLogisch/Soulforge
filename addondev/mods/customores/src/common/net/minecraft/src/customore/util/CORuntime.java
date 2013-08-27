@@ -19,7 +19,7 @@ public class CORuntime {
 		try {
 			cls = Class.forName("net.minecraft.client.Minecraft");
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return cls;
 	}

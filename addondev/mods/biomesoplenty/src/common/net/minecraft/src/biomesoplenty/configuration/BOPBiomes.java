@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import soulforge.biomedict.BiomeDictionary;
 import net.minecraft.src.BiomeGenBase;
 import net.minecraft.src.WorldType;
 import net.minecraft.src.biomesoplenty.biomes.BiomeGenAlps;
@@ -33,6 +34,7 @@ import net.minecraft.src.biomesoplenty.biomes.BiomeGenMeadow;
 import net.minecraft.src.biomesoplenty.biomes.BiomeGenMoor;
 import net.minecraft.src.biomesoplenty.biomes.BiomeGenMountain;
 import net.minecraft.src.biomesoplenty.biomes.BiomeGenMysticGrove;
+import net.minecraft.src.biomesoplenty.biomes.BiomeGenOasis;
 import net.minecraft.src.biomesoplenty.biomes.BiomeGenOminousWoods;
 import net.minecraft.src.biomesoplenty.biomes.BiomeGenOriginValley;
 import net.minecraft.src.biomesoplenty.biomes.BiomeGenPolar;
@@ -90,7 +92,7 @@ public class BOPBiomes
 	public static final BiomeGenBase moor = new BiomeGenMoor(210).setColor(16421912).setBiomeName("Moor").setTemperatureRainfall(0.5F, 1.0F).setMinMaxHeight(0.7F, 0.8F);
 	public static final BiomeGenBase mountain = new BiomeGenMountain(211).setColor(14090235).setBiomeName("Mountain").setTemperatureRainfall(0.5F, 0.1F).setMinMaxHeight(1.2F, 1.2F);
 	public static final BiomeGenBase mysticGrove = new BiomeGenMysticGrove(212).setColor(353825).setBiomeName("Mystic Grove").func_76733_a(5159473).setTemperatureRainfall(0.9F, 1.0F);
-	//public static final BiomeGenBase oasis = new BiomeGenOasis(217).setColor(16421912).setBiomeName("Oasis").setTemperatureRainfall(1.9F, 2.0F).setMinMaxHeight(0.3F, 0.4F);
+	public static final BiomeGenBase oasis = new BiomeGenOasis(217).setColor(16421912).setBiomeName("Oasis").setTemperatureRainfall(1.9F, 2.0F).setMinMaxHeight(0.3F, 0.4F);
 	public static final BiomeGenBase ominousWoods = new BiomeGenOminousWoods(218).setColor(353825).setBiomeName("Ominous Woods").setDisableRain().func_76733_a(5159473).setTemperatureRainfall(0.8F, 0.9F);
 	public static final BiomeGenBase originValley = new BiomeGenOriginValley(220).setColor(353825).setBiomeName("Origin Valley").func_76733_a(5159473).setTemperatureRainfall(0.7F, 0.8F).setMinMaxHeight(0.2F, 0.6F);
 	public static final BiomeGenBase polar = new BiomeGenPolar(223).setColor(6316128).setBiomeName("Polar").setMinMaxHeight(-0.5F, 0.0F).setTemperatureRainfall(0.0F, 0.0F);
@@ -117,7 +119,7 @@ public class BOPBiomes
     
     public static final ArrayList<BiomeGenBase> bopBiomes = new ArrayList<BiomeGenBase>();
     
-    public static final BiomeGenBase[] bopVillageSpawnBiomes = new BiomeGenBase[] {alps, arctic, birchForest, bog, borealForest, brushland, chaparral, coniferousForest, coniferousForestSnow, deciduousForest, dunes, fen, field, frostForest, glacier, grassland, grove, heathland, highland, /*icyHills,*/ jadeCliffs, lushSwamp, marsh, meadow, moor, mountain, mysticGrove, /*oasis,*/ ominousWoods, originValley, polar, prairie, rainforest, redwoodForest, sacredSprings, savanna, scrubland, shield, shrubland, sludgepit, spruceWoods, steppe, temperateRainforest, thicket, timber, tropicalRainforest, tropics, tundra, wetland, woodland };
+    public static final BiomeGenBase[] bopVillageSpawnBiomes = new BiomeGenBase[] {alps, arctic, birchForest, bog, borealForest, brushland, chaparral, coniferousForest, coniferousForestSnow, deciduousForest, dunes, fen, field, frostForest, glacier, grassland, grove, heathland, highland, /*icyHills,*/ jadeCliffs, lushSwamp, marsh, meadow, moor, mountain, mysticGrove, oasis, ominousWoods, originValley, polar, prairie, rainforest, redwoodForest, sacredSprings, savanna, scrubland, shield, shrubland, sludgepit, spruceWoods, steppe, temperateRainforest, thicket, timber, tropicalRainforest, tropics, tundra, wetland, woodland };
     
     public static final BiomeGenBase[] bopStrongholdSpawnBiomes = new BiomeGenBase[] {alps, arctic, birchForest, bog, borealForest, brushland, chaparral, coniferousForest, coniferousForestSnow, deciduousForest, dunes, fen, field, frostForest, glacier, grassland, grove, heathland, highland, /*icyHills,*/ jadeCliffs, lushSwamp, marsh, meadow, moor, mountain, mysticGrove, /*oasis,*/ ominousWoods, originValley, polar, prairie, rainforest, redwoodForest, sacredSprings, savanna, scrubland, shield, shrubland, sludgepit, spruceWoods, steppe, temperateRainforest, thicket, timber, tropicalRainforest, tropics, tundra, volcano, wetland, woodland };
     
@@ -154,7 +156,7 @@ public class BOPBiomes
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("moorGeneration")) bopBiomes.add(moor);
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("mountainGeneration")) bopBiomes.add(mountain);
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("mysticGroveGeneration")) bopBiomes.add(mysticGrove);
-		//ifBOPConfiguration.biomeGenConfigFileig.getBoolean("oasisGeneration")) bopBiomes.add(oasis);
+		if (BOPConfiguration.biomeGenConfigFile.getBoolean("oasisGeneration")) bopBiomes.add(oasis);
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("ominousWoodsGeneration")) bopBiomes.add(ominousWoods);
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("originValleyGeneration")) bopBiomes.add(originValley);
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("polarGeneration")) bopBiomes.add(polar);
@@ -178,6 +180,7 @@ public class BOPBiomes
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("volcanoGeneration")) bopBiomes.add(volcano);
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("wetlandGeneration")) bopBiomes.add(wetland);
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("woodlandGeneration")) bopBiomes.add(woodland);
+	
 	}
 	
     public static ArrayList<BiomeGenBase> getBiomesForWorldType() 

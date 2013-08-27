@@ -56,6 +56,7 @@ public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator,
 	@Override
 	public void initialized(CommonHandler handler) {
 		 TickRegistry.registerTickHandler(this, handler.getSide());
+	     FCAddOnHandler.LogMessage("initialized handler" + handler);
 	     GameRegistry.registerWorldGenerator(this);
 	     EventRegistry.registerEventHandler(this);
 	     FCAddOnHandler.LogMessage("[BetterOre] Better Ore Initialization Complete.");

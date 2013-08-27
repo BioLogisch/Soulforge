@@ -25,7 +25,7 @@ public class BOPConfiguration
 		@Override
 		public void setDefaults() 
 		{
-			properties.setProperty("enableCustomContent", "false");
+			properties.setProperty("enableCustomContent", "true");
 		}
 
 		@Override
@@ -73,7 +73,7 @@ public class BOPConfiguration
 			properties.setProperty("moorGeneration", "true");
 			properties.setProperty("mountainGeneration", "true");
 			properties.setProperty("mysticGroveGeneration", "true");
-			//properties.setProperty("oasisGeneration", "true");
+			properties.setProperty("oasisGeneration", "true");
 			properties.setProperty("ominousWoodsGeneration", "true");
 			properties.setProperty("originValleyGeneration", "true");
 			properties.setProperty("polarGeneration", "true");

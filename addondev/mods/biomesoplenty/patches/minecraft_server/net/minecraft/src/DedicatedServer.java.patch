@@ -1,0 +1,10 @@
+--- ../src_base/minecraft_server/net/minecraft/src/DedicatedServer.java
++++ ../src/minecraft_server/net/minecraft/src/DedicatedServer.java
+@@ -45,6 +45,7 @@
+         {
+             this.getLogAgent().func_98236_b("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
+         }
++        FCAddOnHandler.InitializeMods();
+         ServerHandler.instance().beginServerLoading(this);
+         CommonHandler.instance().onServerStart(this);
+ 

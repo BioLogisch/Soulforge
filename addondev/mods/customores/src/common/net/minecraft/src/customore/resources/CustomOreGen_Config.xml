@@ -27,14 +27,14 @@
             </Description>
         </OptionDisplayGroup>
         
-        <OptionNumeric name='oreFreq' default='1' min='0' max='5' displayState='shown' displayGroup='groupGeneral'>
+        <OptionNumeric name='oreFreq' default='2' min='0' max='5' displayState='shown' displayGroup='groupGeneral'>
             <Description> 
                 A global multiplier for the frequency of all ore distributions. 
             </Description>
             <DisplayName>Ore Frequency</DisplayName>
         </OptionNumeric>
         
-        <OptionNumeric name='oreSize' default='1' min='0' max='5' displayState='shown' displayGroup='groupGeneral'>
+        <OptionNumeric name='oreSize' default='2' min='0' max='5' displayState='shown' displayGroup='groupGeneral'>
             <Description> 
                 A global multiplier for the size of all ore distributions. 
             </Description>
@@ -53,7 +53,7 @@
             <Choice value='false' displayValue='Off'/>
         </OptionChoice> 
         
-        <OptionNumeric name='deferredPopulationRange' default='24' displayGroup='groupGeneral'>
+        <OptionNumeric name='deferredPopulationRange' default='32' displayGroup='groupGeneral'>
             <Description> 
                 How much area around a chunk must be generated before COG will add ores to it. 
             </Description>

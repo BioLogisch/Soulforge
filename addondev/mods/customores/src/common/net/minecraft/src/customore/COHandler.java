@@ -14,6 +14,7 @@ import net.minecraft.src.BiomeGenBase;
 import net.minecraft.src.BlockSand;
 import net.minecraft.src.ChunkCoordIntPair;
 import net.minecraft.src.CompressedStreamTools;
+import net.minecraft.src.FCAddOnHandler;
 import net.minecraft.src.ISaveFormat;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.RegionFileCache;
