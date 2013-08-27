@@ -33,7 +33,7 @@ def main():
     parser.add_option('-m', '--mcp-dir', action='store', dest='mcp_dir', help='Path to MCP', default=None)
     options, _ = parser.parse_args()
     
-    soulforge_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    soulforge_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     
     mcp = os.path.join(soulforge_dir, 'mcp')
     if not options.mcp_dir is None:

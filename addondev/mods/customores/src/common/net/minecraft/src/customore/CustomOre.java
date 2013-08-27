@@ -18,6 +18,7 @@ import net.minecraft.src.FCAddOnHandler;
 import net.minecraft.src.IChunkProvider;
 import net.minecraft.src.World;
 import net.minecraft.src.WorldInfo;
+import net.minecraft.src.customore.config.ui.COUIHandler;
 import net.minecraft.src.customore.util.COConfig;
 import net.minecraft.src.customore.util.CORuntime;
 
@@ -42,16 +43,17 @@ public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator,
     @Override
     public void PreInitialize() 
     {
-    	 TickRegistry.registerTickHandler(this, Side.CLIENT);
-	     GameRegistry.registerWorldGenerator(this);
-	     EventRegistry.registerEventHandler(this);
+    	
     }
 	
 	@Override
 	public void Initialize() {
 		FCAddOnHandler.LogMessage("[BetterOre] Better Ore Version " + coVersion + " Initializing...");
 		
-		
+		 TickRegistry.registerTickHandler(this, CommonHandler.instance().getSide());
+	     GameRegistry.registerWorldGenerator(this);
+	     EventRegistry.registerEventHandler(this);
+	     
         FCAddOnHandler.LogMessage("[BetterOre] Better Ore Initialization Complete.");
 	}
 	
@@ -67,6 +69,7 @@ public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator,
 		{
 			this.onServerTick();
 		}
+		COUIHandler.onClientTick();
 	}
 	
 	private void onServerTick()
