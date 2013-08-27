@@ -20,7 +20,8 @@ public class CommonHandler {
     
     private List<IScheduledTickHandler> scheduledClientTicks = Lists.newArrayList();
     private List<IScheduledTickHandler> scheduledServerTicks = Lists.newArrayList();
-    
+    private List<ICommonHandlerDelegate> delegates = Lists.newArrayList();
+
     /**
      * The delegate for side specific data and functions
      */
@@ -34,6 +35,10 @@ public class CommonHandler {
         return INSTANCE;
     }
     
+    public void registerDelegate(ICommonHandlerDelegate delegate) {
+    	delegates.add(delegate);
+    }
+    
     public Side getSide()
     {
         return sidedDelegate.getSide();
@@ -43,6 +48,9 @@ public class CommonHandler {
     public void beginLoading(ISidedHandler handler)
     {
         sidedDelegate = handler;
+        for (ICommonHandlerDelegate delegate : delegates) {
+			delegate.initialized(this);
+		}
     }
     
     public void handleServerStarted()

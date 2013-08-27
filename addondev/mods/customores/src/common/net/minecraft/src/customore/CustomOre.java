@@ -6,6 +6,7 @@ import java.util.Random;
 import soulforge.utils.CommonHandler;
 import soulforge.utils.EventRegistry;
 import soulforge.utils.GameRegistry;
+import soulforge.utils.ICommonHandlerDelegate;
 import soulforge.utils.IEventHandler;
 import soulforge.utils.ITickHandler;
 import soulforge.utils.IWorldGenerator;
@@ -22,7 +23,7 @@ import net.minecraft.src.customore.config.ui.COUIHandler;
 import net.minecraft.src.customore.util.COConfig;
 import net.minecraft.src.customore.util.CORuntime;
 
-public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator, IEventHandler
+public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator, IEventHandler, ICommonHandlerDelegate
 {
 
     public static String coVersion = "0.0.1";
@@ -49,12 +50,15 @@ public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator,
 	@Override
 	public void Initialize() {
 		FCAddOnHandler.LogMessage("[BetterOre] Better Ore Version " + coVersion + " Initializing...");
-		
-		 TickRegistry.registerTickHandler(this, CommonHandler.instance().getSide());
+		CommonHandler.instance().registerDelegate(this);
+	}
+	
+	@Override
+	public void initialized(CommonHandler handler) {
+		 TickRegistry.registerTickHandler(this, handler.getSide());
 	     GameRegistry.registerWorldGenerator(this);
 	     EventRegistry.registerEventHandler(this);
-	     
-        FCAddOnHandler.LogMessage("[BetterOre] Better Ore Initialization Complete.");
+	     FCAddOnHandler.LogMessage("[BetterOre] Better Ore Initialization Complete.");
 	}
 	
 	@Override
@@ -126,5 +130,7 @@ public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator,
 	public String getLabel() {
         return "CustomOre.SFInterface";
 	}
+
+	
 
 }

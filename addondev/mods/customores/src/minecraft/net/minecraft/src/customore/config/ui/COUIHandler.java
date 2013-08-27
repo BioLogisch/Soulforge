@@ -18,7 +18,6 @@ public class COUIHandler {
 
 	public static void onClientTick() {
 
-		FCAddOnHandler.LogMessage("onClientTick");
 		Minecraft mc = Minecraft.getMinecraft();
 
 		if (mc.theWorld == null && mc.currentScreen != null)
