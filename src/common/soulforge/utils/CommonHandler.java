@@ -10,6 +10,8 @@ import net.minecraft.src.FCAddOnHandler;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
+import soulforge.server.ServerHandler;
+
 public class CommonHandler {
 	  /**
      * The singleton
@@ -32,13 +34,16 @@ public class CommonHandler {
         return INSTANCE;
     }
     
+    public Side getSide()
+    {
+        return sidedDelegate.getSide();
+    }
+
+    
     public void beginLoading(ISidedHandler handler)
     {
         sidedDelegate = handler;
-       
     }
-    
-   
     
     public void handleServerStarted()
     {

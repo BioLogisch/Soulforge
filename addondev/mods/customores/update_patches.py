@@ -32,8 +32,9 @@ def main():
     parser = OptionParser()
     parser.add_option('-m', '--mcp-dir', action='store', dest='mcp_dir', help='Path to MCP', default=None)
     options, _ = parser.parse_args()
-    
-    soulforge_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    print(os.path.abspath(__file__))
+
+    soulforge_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     
     mcp = os.path.join(soulforge_dir, 'mcp')
     if not options.mcp_dir is None:
@@ -44,7 +45,10 @@ def main():
     patchd = os.path.normpath(os.path.join(soulforge_dir, 'mods', 'customores', 'patches'))
     base = os.path.normpath(os.path.join(mcp, 'src_base'))
     work = os.path.normpath(os.path.join(mcp, 'src'))
-    
+    print(patchd)
+    print(base)
+    print(work)
+
     for path, _, filelist in os.walk(work, followlinks=True):
         for cur_file in fnmatch.filter(filelist, '*.java'):
             file_base = os.path.normpath(os.path.join(base, path[len(work)+1:], cur_file)).replace(os.path.sep, '/')

@@ -1,0 +1,11 @@
+--- ../src_base/minecraft_server/net/minecraft/src/SaveFormatOld.java
++++ ../src/minecraft_server/net/minecraft/src/SaveFormatOld.java
+@@ -167,4 +167,8 @@
+     {
+         return false;
+     }
++
++	public File getSavesDirectory() {
++		return this.savesDirectory;
++	}
+ }
