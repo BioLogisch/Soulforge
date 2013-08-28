@@ -1,0 +1,20 @@
+--- ../src_base/minecraft/net/minecraft/src/StructureScatteredFeatureStart.java
++++ ../src/minecraft/net/minecraft/src/StructureScatteredFeatureStart.java
+@@ -1,6 +1,8 @@
+ package net.minecraft.src;
+ 
+ import java.util.Random;
++
++import net.minecraft.src.biomesoplenty.configuration.BOPBiomes;
+ 
+ public class StructureScatteredFeatureStart extends StructureStart
+ {
+@@ -10,7 +12,7 @@
+ 
+         if (var5 != BiomeGenBase.jungle && var5 != BiomeGenBase.jungleHills)
+         {
+-            if (var5 == BiomeGenBase.swampland)
++            if (var5 == BiomeGenBase.swampland || var5 == BOPBiomes.timber)
+             {
+                 ComponentScatteredFeatureSwampHut var8 = new ComponentScatteredFeatureSwampHut(par2Random, par3 * 16, par4 * 16);
+                 this.components.add(var8);
