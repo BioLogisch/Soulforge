@@ -1,5 +1,32 @@
 --- ../src_base/minecraft_server/net/minecraft/src/BiomeDecorator.java
 +++ ../src/minecraft_server/net/minecraft/src/BiomeDecorator.java
+@@ -31,20 +31,20 @@
+     /** The dirt generator. */
+     protected WorldGenerator dirtGen;
+     protected WorldGenerator gravelGen;
+-    protected WorldGenerator coalGen;
+-    protected WorldGenerator ironGen;
++    public WorldGenerator coalGen;
++    public WorldGenerator ironGen;
+ 
+     /** Field that holds gold WorldGenMinable */
+-    protected WorldGenerator goldGen;
++    public WorldGenerator goldGen;
+ 
+     /** Field that holds redstone WorldGenMinable */
+-    protected WorldGenerator redstoneGen;
++    public WorldGenerator redstoneGen;
+ 
+     /** Field that holds diamond WorldGenMinable */
+-    protected WorldGenerator diamondGen;
++    public WorldGenerator diamondGen;
+ 
+     /** Field that holds Lapis WorldGenMinable */
+-    protected WorldGenerator lapisGen;
++    public WorldGenerator lapisGen;
+ 
+     /** Field that holds one of the plantYellow WorldGenFlowers */
+     protected WorldGenerator plantYellowGen;
 @@ -76,7 +76,7 @@
      /**
       * The number of trees to attempt to generate per chunk. Up to 10 in forests, none in deserts.

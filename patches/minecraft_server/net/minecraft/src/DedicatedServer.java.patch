@@ -10,16 +10,17 @@
  import net.minecraft.server.MinecraftServer;
  
  public class DedicatedServer extends MinecraftServer implements IServer
-@@ -42,6 +45,8 @@
+@@ -42,6 +45,9 @@
          {
              this.getLogAgent().func_98236_b("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
          }
++        FCAddOnHandler.InitializeMods();
 +        ServerHandler.instance().beginServerLoading(this);
 +        CommonHandler.instance().onServerStart(this);
  
          this.getLogAgent().func_98233_a("Loading properties");
          this.settings = new PropertyManager(new File("server.properties"), this.getLogAgent());
-@@ -112,6 +117,8 @@
+@@ -112,6 +118,8 @@
              this.getLogAgent().func_98236_b("While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.");
              this.getLogAgent().func_98236_b("To change this, set \"online-mode\" to \"true\" in the server.properties file.");
          }
@@ -28,7 +29,7 @@
  
          this.setConfigurationManager(new DedicatedPlayerList(this));
          long var4 = System.nanoTime();
-@@ -154,6 +161,7 @@
+@@ -154,6 +162,7 @@
          this.setBuildLimit((this.getBuildLimit() + 8) / 16 * 16);
          this.setBuildLimit(MathHelper.clamp_int(this.getBuildLimit(), 64, 256));
          this.settings.setProperty("max-build-height", Integer.valueOf(this.getBuildLimit()));
@@ -36,7 +37,7 @@
          this.getLogAgent().func_98233_a("Preparing level \"" + this.getFolderName() + "\"");
          this.loadAllWorlds(this.getFolderName(), this.getFolderName(), var9, var17, var8);
          long var12 = System.nanoTime() - var4;
-@@ -173,8 +181,7 @@
+@@ -173,8 +182,7 @@
              this.theRConThreadMain = new RConThreadMain(this);
              this.theRConThreadMain.startThread();
          }

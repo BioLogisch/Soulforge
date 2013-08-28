@@ -30,6 +30,25 @@
 			<type>2</type>
 			<locationURI>SF_ROOT/src/minecraft_server</locationURI>
 		</link>
+<link>
+                        <name>bopcommon</name>
+                        <type>2</type>
+                        <locationURI>SF_ROOT/srcbiomesoplenty/common</locationURI>
+                </link><link>
+                        <name>bopsrc</name>
+                        <type>2</type>
+                        <locationURI>SF_ROOT/srcbiomesoplenty/minecraft</locationURI>
+                </link>
+<link>
+                        <name>cocommon</name>
+                        <type>2</type>
+                        <locationURI>SF_ROOT/srccustomores/common</locationURI>
+                </link><link>
+                        <name>cosrc</name>
+                        <type>2</type>
+                        <locationURI>SF_ROOT/srccustomores/minecraft</locationURI>
+                </link>
+
 		<link>
 			<name>src</name>
 			<type>2</type>

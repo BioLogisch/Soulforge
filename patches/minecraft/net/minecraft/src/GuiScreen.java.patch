@@ -1,0 +1,23 @@
+--- ../src_base/minecraft/net/minecraft/src/GuiScreen.java
++++ ../src/minecraft/net/minecraft/src/GuiScreen.java
+@@ -6,8 +6,11 @@
+ import java.awt.datatransfer.StringSelection;
+ import java.awt.datatransfer.Transferable;
+ import java.util.ArrayList;
++import java.util.Collection;
+ import java.util.List;
++
+ import net.minecraft.client.Minecraft;
++
+ import org.lwjgl.input.Keyboard;
+ import org.lwjgl.input.Mouse;
+ import org.lwjgl.opengl.GL11;
+@@ -309,4 +312,8 @@
+     {
+         return Keyboard.isKeyDown(42) || Keyboard.isKeyDown(54);
+     }
++
++	public Collection getButtonList() {
++		return this.buttonList;
++	}
+ }

@@ -250,7 +250,8 @@ def movetodist(soulforge_dir):
         shutil.rmtree(os.path.join(binarypatcherdir, 'patches'))
     
     copytree(nonbtweditsdir, os.path.join(binarypatcherdir, 'nonbtwedits'))
-    copytree(libdir, os.path.join(binarypatcherdir, 'nonbtwedits'))
+    copytree(libdir, os.path.join(binarypatcherdir, 'nonbtwedits', 'MINECRAFT-JAR'))
+    copytree(libdir, os.path.join(binarypatcherdir, 'nonbtwedits', 'MINECRAFT_SERVER-JAR'))
 
     copytree(patchesdir, os.path.join(binarypatcherdir, 'patches'))
     copytree(binarypatcherdir, distdir) 
@@ -281,6 +282,10 @@ def cleanup(soulforge_dir, mcp_dir):
     work_minecraft_server_jar_loc = os.path.join(basediff, 'work', 'MINECRAFT_SERVER-JAR')
     soulforge_mcp_csrc_loc = os.path.join(mcp_dir, 'src', 'minecraft', 'soulforge')
     soulforge_mcp_ssrc_loc = os.path.join(mcp_dir, 'src', 'minecraft_server', 'soulforge')
+    biome_mcp_csrc_loc = os.path.join(mcp_dir, 'src', 'minecraft', 'biomesoplenty')
+    biome_mcp_ssrc_loc = os.path.join(mcp_dir, 'src', 'minecraft_server', 'biomesoplenty')
+    ore_mcp_csrc_loc = os.path.join(mcp_dir, 'src', 'minecraft', 'customore')
+    ore_mcp_ssrc_loc = os.path.join(mcp_dir, 'src', 'minecraft_server', 'customore')
     
     if os.path.exists(btw_minecraft_jar_loc):
         shutil.rmtree(btw_minecraft_jar_loc)

@@ -1,0 +1,10 @@
+--- ../src_base/minecraft_server/net/minecraft/src/World.java
++++ ../src/minecraft_server/net/minecraft/src/World.java
+@@ -151,7 +151,6 @@
+ 
+     public World(ISaveHandler par1ISaveHandler, String par2Str, WorldSettings par3WorldSettings, WorldProvider par4WorldProvider, Profiler par5Profiler, ILogAgent par6ILogAgent)
+     {
+-        FCAddOnHandler.InitializeMods();
+         this.ambientTickCountdown = this.rand.nextInt(12000);
+         this.lightUpdateBlockList = new int[32768];
+         this.isRemote = false;

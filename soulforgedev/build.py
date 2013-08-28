@@ -17,7 +17,16 @@ def soulforge_main(soulforge_dir, mcp_dir):
     copytree(os.path.join(soulforge_dir, 'src', 'minecraft'), os.path.join(mcp_dir, 'src', 'minecraft')) 
     copytree(os.path.join(soulforge_dir, 'src', 'common'), os.path.join(mcp_dir, 'src', 'minecraft')) 
     copytree(os.path.join(soulforge_dir, 'src', 'minecraft_server'), os.path.join(mcp_dir, 'src', 'minecraft_server')) 
-    copytree(os.path.join(soulforge_dir, 'src', 'common'), os.path.join(mcp_dir, 'src', 'minecraft_server')) 
+    copytree(os.path.join(soulforge_dir, 'src', 'common'), os.path.join(mcp_dir, 'src', 'minecraft_server'))
+    copytree(os.path.join(soulforge_dir, 'srcbiomesoplenty', 'minecraft'), os.path.join(mcp_dir, 'src', 'minecraft'))
+    copytree(os.path.join(soulforge_dir, 'srcbiomesoplenty', 'common'), os.path.join(mcp_dir, 'src', 'minecraft'))
+    copytree(os.path.join(soulforge_dir, 'srcbiomesoplenty', 'minecraft_server'), os.path.join(mcp_dir, 'src', 'minecraft_server'))
+    copytree(os.path.join(soulforge_dir, 'srcbiomesoplenty', 'common'), os.path.join(mcp_dir, 'src', 'minecraft_server'))
+    copytree(os.path.join(soulforge_dir, 'srccustomores', 'minecraft'), os.path.join(mcp_dir, 'src', 'minecraft'))
+    copytree(os.path.join(soulforge_dir, 'srccustomores', 'common'), os.path.join(mcp_dir, 'src', 'minecraft'))
+    copytree(os.path.join(soulforge_dir, 'srccustomores', 'minecraft_server'), os.path.join(mcp_dir, 'src', 'minecraft_server'))
+    copytree(os.path.join(soulforge_dir, 'srccustomores', 'common'), os.path.join(mcp_dir, 'src', 'minecraft_server'))
+
     os.chdir(mcp_dir)
     reset_logger()
     print 'Recompiling'

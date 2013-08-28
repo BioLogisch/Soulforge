@@ -1,0 +1,22 @@
+--- ../src_base/minecraft/net/minecraft/src/EntitySlime.java
++++ ../src/minecraft/net/minecraft/src/EntitySlime.java
+@@ -1,4 +1,6 @@
+ package net.minecraft.src;
++
++import biomesoplenty.configuration.BOPBiomes;
+ 
+ public class EntitySlime extends EntityLiving implements IMob
+ {
+@@ -290,8 +292,11 @@
+             {
+                 BiomeGenBase var2 = this.worldObj.getBiomeGenForCoords(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posZ));
+ 
+-                if (var2 == BiomeGenBase.swampland && this.posY > 50.0D && this.posY < 70.0D && this.rand.nextFloat() < 0.5F && this.rand.nextFloat() < spawnChances[this.worldObj.getMoonPhase()] && this.worldObj.getBlockLightValue(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) <= this.rand.nextInt(8))
++                if ((var2 == BOPBiomes.mysticGrove || var2 == BiomeGenBase.swampland) && this.posY > 50.0D && this.posY < 70.0D && this.rand.nextFloat() < 0.5F && this.rand.nextFloat() < spawnChances[this.worldObj.getMoonPhase()] && this.worldObj.getBlockLightValue(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) <= this.rand.nextInt(8))
+                 {
++                	if (var2 == BOPBiomes.mysticGrove) {
++                		this.setSlimeSize(1);
++                	}
+                     return super.getCanSpawnHere();
+                 }
+ 

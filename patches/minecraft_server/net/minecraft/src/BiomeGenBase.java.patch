@@ -57,3 +57,20 @@
      {
          this.color = par1;
          return this;
+@@ -303,4 +303,16 @@
+     {
+         this.theBiomeDecorator.decorate(par1World, par2Random, par3, par4);
+     }
++
++	public int getBiomeFoliageColor() {
++		return 0;
++	}
++
++	public int getBiomeGrassColor() {
++		return 0;
++	}
++
++	public int getSkyColorByTemp(float par1) {
++		return 0;
++	}
+ }
