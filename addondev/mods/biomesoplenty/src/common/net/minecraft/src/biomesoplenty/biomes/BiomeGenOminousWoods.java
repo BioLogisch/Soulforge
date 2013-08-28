@@ -40,7 +40,6 @@ public class BiomeGenOminousWoods extends BiomeGenBase
 		spawnableMonsterList.clear();
 		spawnableCreatureList.clear();
 		spawnableWaterCreatureList.clear();
-		spawnableMonsterList.add(new SpawnListEntry(EntityCaveSpider.class, 7, 1, 2));
 		spawnableMonsterList.add(new SpawnListEntry(EntitySpider.class, 9, 1, 2));
 		spawnableMonsterList.add(new SpawnListEntry(EntityEnderman.class, 10, 1, 4));
 		spawnableMonsterList.add(new SpawnListEntry(FCEntityWolfDire.class, 1, 1, 1));

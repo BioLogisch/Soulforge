@@ -18,7 +18,7 @@ public class BiomeGenSteppe extends BiomeGenBase
 	{
 		super(par1);
 		spawnableCreatureList.clear();
-		spawnableCreatureList.add(new SpawnListEntry(EntityWolf.class, 5, 4, 4));
+		spawnableCreatureList.add(new SpawnListEntry(EntityWolf.class, 3, 4, 4));
 		theBiomeDecorator = new BiomeDecoratorBOP(this);
 		customBiomeDecorator = (BiomeDecoratorBOP)theBiomeDecorator;
 		customBiomeDecorator.treesPerChunk = -999;
@@ -30,6 +30,8 @@ public class BiomeGenSteppe extends BiomeGenBase
 		customBiomeDecorator.steppePerChunk = 6;
 		//customBiomeDecorator.aloePerChunk = 2;
 		customBiomeDecorator.generatePumpkins = false;
+		customBiomeDecorator.carrotsPerChunk = 3;
+
 	}
 	
 	@Override

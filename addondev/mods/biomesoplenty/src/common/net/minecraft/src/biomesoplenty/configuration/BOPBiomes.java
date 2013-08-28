@@ -181,6 +181,7 @@ public class BOPBiomes
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("wetlandGeneration")) bopBiomes.add(wetland);
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("woodlandGeneration")) bopBiomes.add(woodland);
 	
+		
 	}
 	
     public static ArrayList<BiomeGenBase> getBiomesForWorldType() 
