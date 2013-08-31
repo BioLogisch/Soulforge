@@ -5,21 +5,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
+import soulforge.utils.ConfigFile;
+
 public class COFileUtils {
 	
 	
 	public static File getBaseDir() {
-		File baseDir = null;
-		if (CORuntime.isClient()) {
-			baseDir = CORuntime.getFile(CORuntime.getMincraftClass(), "getMinecraftDir");
-		} else {
-			baseDir = new File(".");
-		}
+		File baseDir = new File(ConfigFile.baseConfigDir);
 		return baseDir;
 	}
 	
 	public static File getConfigDir() {
-		File configdir = new File(getBaseDir(), "config/betterores");
+		File configdir = new File(getBaseDir(), "betterores");
 		if (!configdir.exists()){ configdir.mkdirs();}
 		return configdir;
 	}
@@ -29,9 +26,6 @@ public class COFileUtils {
 		if (!file.getParentFile().exists()){ file.getParentFile().mkdirs();}
 		return file;
 	}
-	
-	
-	
 	
 	public static boolean unpackResourceFile(String resourceName, File destination)
 	{

@@ -82,7 +82,6 @@ public class COMapGenCloud extends COMapGenOreDistribution
 
     public Component generateStructure(StructureGroup structureGroup, Random random)
     {
-    	COLogger.log.fine("Gen Cloud");
         float clX = (random.nextFloat() + (float)structureGroup.chunkX) * 16.0F;
         float clY = this.clHeight.getValue(random);
         float clZ = (random.nextFloat() + (float)structureGroup.chunkZ) * 16.0F;

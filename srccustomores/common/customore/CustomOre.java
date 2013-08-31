@@ -20,6 +20,7 @@ import soulforge.utils.TickRegistry;
 import soulforge.utils.TickType;
 import customore.util.COConfig;
 import customore.util.CORuntime;
+import customore.util.COUtil;
 
 public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator, IEventHandler, ICommonHandlerDelegate
 {
@@ -67,8 +68,7 @@ public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator,
 	}
 	
 	public void onClientTick() {
-		Object minecraft = CORuntime.getObject(CORuntime.getMincraftClass(), "getMinecraft");
-		if (minecraft != null && CORuntime.getBoolean(minecraft, "isSingleplayer"))
+		if (COUtil.isSinglePlayer())
 		{
 			this.onServerTick();
 		}
