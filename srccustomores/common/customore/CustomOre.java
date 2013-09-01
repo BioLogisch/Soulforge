@@ -1,12 +1,16 @@
 package customore;
 
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Random;
 
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.src.ChunkCoordIntPair;
 import net.minecraft.src.FCAddOn;
 import net.minecraft.src.FCAddOnHandler;
+import net.minecraft.src.FCTileEntityCement;
 import net.minecraft.src.IChunkProvider;
+import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraft.src.WorldInfo;
 import soulforge.utils.CommonHandler;
@@ -18,7 +22,11 @@ import soulforge.utils.ITickHandler;
 import soulforge.utils.IWorldGenerator;
 import soulforge.utils.TickRegistry;
 import soulforge.utils.TickType;
+import customore.api.COAPIBlocks;
+import customore.api.COAPICrafting;
+import customore.entity.COChunkLoaderTileEntity;
 import customore.util.COConfig;
+import customore.util.COLogger;
 import customore.util.CORuntime;
 import customore.util.COUtil;
 
@@ -43,13 +51,15 @@ public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator,
     @Override
     public void PreInitialize() 
     {
-    	
+    	COAPIBlocks.init();
+    	COAPICrafting.init();
     }
 	
 	@Override
 	public void Initialize() {
 		FCAddOnHandler.LogMessage("[BetterOre] Better Ore Version " + coVersion + " Initializing...");
 		CommonHandler.instance().registerDelegate(this);
+        TileEntity.addMapping(COChunkLoaderTileEntity.class, "chunkLoader");
 	}
 	
 	@Override
@@ -83,13 +93,19 @@ public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator,
 	@Override
 	public void onServerStarting(MinecraftServer server) {
 		COHandler.onServerChanged(server, null);
+		COChunkManager.instance().init(server);
 	}
 
 	@Override
-	public void serverStarted() {}
+	public void serverStarted() {
+		COChunkManager.instance().load();
+		
+	}
 
 	@Override
-	public void serverStopping() {}
+	public void serverStopping() {
+		COChunkManager.instance().close();
+	}
 
 	@Override
 	public void serverStopped() {}
@@ -127,6 +143,22 @@ public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator,
 	@Override
 	public String getLabel() {
         return "CustomOre.SFInterface";
+	}
+
+	@Override
+	public Boolean shouldUnloadChunk(World world, ChunkCoordIntPair chunkCoord) {
+		return COChunkManager.instance().canUnloadChunk(world, chunkCoord);
+	}
+
+	@Override
+	public Boolean hasLoadedChunksForDimension(int dimId) {
+		return COChunkManager.instance().hasLoadedChunksInDimension(dimId);
+	}
+
+	@Override
+	public HashSet<ChunkCoordIntPair> loadedChunksForDimension(int dimId) {
+
+		return COChunkManager.instance().loadedChunksForDimension(dimId);
 	}
 
 	

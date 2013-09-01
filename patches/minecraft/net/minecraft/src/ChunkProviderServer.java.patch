@@ -1,15 +1,39 @@
 --- ../src_base/minecraft/net/minecraft/src/ChunkProviderServer.java
 +++ ../src/minecraft/net/minecraft/src/ChunkProviderServer.java
-@@ -6,6 +6,8 @@
- import java.util.Iterator;
+@@ -7,6 +7,9 @@
  import java.util.List;
  import java.util.Set;
-+
-+import soulforge.utils.GameRegistry;
  
++import soulforge.utils.EventRegistry;
++import soulforge.utils.GameRegistry;
++
  public class ChunkProviderServer implements IChunkProvider
  {
-@@ -231,6 +233,7 @@
+     /**
+@@ -57,12 +60,17 @@
+ 
+             if (var4 < -var6 || var4 > var6 || var5 < -var6 || var5 > var6)
+             {
++            	if (EventRegistry.shouldUnloadChunk(this.worldObj, new ChunkCoordIntPair(par1, par2))) {
++                    this.chunksToUnload.add(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(par1, par2)));
++            	}
++            }
++        }
++        else
++        {
++        	Long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
++        	if (EventRegistry.shouldUnloadChunk(this.worldObj, new ChunkCoordIntPair(par1, par2))) {
+                 this.chunksToUnload.add(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(par1, par2)));
+-            }
+-        }
+-        else
+-        {
+-            this.chunksToUnload.add(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(par1, par2)));
++        	}
+         }
+     }
+ 
+@@ -231,6 +239,7 @@
              if (this.currentChunkProvider != null)
              {
                  this.currentChunkProvider.populate(par1IChunkProvider, par2, par3);

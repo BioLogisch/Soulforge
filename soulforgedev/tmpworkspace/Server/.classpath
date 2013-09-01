@@ -3,8 +3,12 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="soulforgesrc"/>
 	<classpathentry kind="src" path="common"/>
+<classpathentry kind="src" path="bopcommon"/>
+<classpathentry kind="src" path="bopsrc"/>
+<classpathentry kind="src" path="cocommon"/>
+<classpathentry kind="src" path="cosrc"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="jars/minecraft_server.jar"/>
-	<classpathentry kind="lib" path="../../lib/MINECRAFT_SERVER-JAR"/>
+	<classpathentry kind="lib" path="/Users/sinan/Documents/3 Java/Soulforge/lib"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

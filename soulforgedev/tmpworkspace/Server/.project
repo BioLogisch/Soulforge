@@ -37,7 +37,7 @@
                 </link><link>
                         <name>bopsrc</name>
                         <type>2</type>
-                        <locationURI>SF_ROOT/srcbiomesoplenty/minecraft</locationURI>
+                        <locationURI>SF_ROOT/srcbiomesoplenty/minecraft_server</locationURI>
                 </link>
 <link>
                         <name>cocommon</name>
@@ -46,7 +46,7 @@
                 </link><link>
                         <name>cosrc</name>
                         <type>2</type>
-                        <locationURI>SF_ROOT/srccustomores/minecraft</locationURI>
+                        <locationURI>SF_ROOT/srccustomores/minecraft_server</locationURI>
                 </link>
 
 		<link>

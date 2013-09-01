@@ -1,15 +1,41 @@
 --- ../src_base/minecraft_server/net/minecraft/src/ChunkProviderServer.java
 +++ ../src/minecraft_server/net/minecraft/src/ChunkProviderServer.java
-@@ -6,6 +6,8 @@
- import java.util.Iterator;
+@@ -7,6 +7,9 @@
  import java.util.List;
  import java.util.Set;
-+
-+import soulforge.utils.GameRegistry;
  
++import soulforge.utils.EventRegistry;
++import soulforge.utils.GameRegistry;
++
  public class ChunkProviderServer implements IChunkProvider
  {
-@@ -223,6 +225,7 @@
+     private Set droppedChunksSet = new HashSet();
+@@ -58,12 +61,19 @@
+ 
+             if (var4 < -var6 || var4 > var6 || var5 < -var6 || var5 > var6)
+             {
++            	Long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
++            	if (EventRegistry.shouldUnloadChunk(this.worldObj, new ChunkCoordIntPair(par1, par2))) {
++                    this.droppedChunksSet.add(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(par1, par2)));
++            	}
++            	
++            }
++        }
++        else
++        {
++        	Long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
++        	if (EventRegistry.shouldUnloadChunk(this.worldObj, new ChunkCoordIntPair(par1, par2))) {
+                 this.droppedChunksSet.add(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(par1, par2)));
+-            }
+-        }
+-        else
+-        {
+-            this.droppedChunksSet.add(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(par1, par2)));
++        	}
+         }
+     }
+ 
+@@ -223,6 +233,7 @@
              if (this.serverChunkGenerator != null)
              {
                  this.serverChunkGenerator.populate(par1IChunkProvider, par2, par3);

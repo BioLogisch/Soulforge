@@ -27,7 +27,7 @@
          {
              if (blocksList[var0] != null)
              {
-@@ -1428,4 +1430,118 @@
+@@ -1428,4 +1430,119 @@
          canBlockGrass[0] = true;
          StatList.initBreakableStats();
      }
@@ -145,4 +145,5 @@
 +   {
 +        return false;
 +   }
++
  }

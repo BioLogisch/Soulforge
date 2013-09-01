@@ -3,7 +3,10 @@ package soulforge.utils;
 import java.util.HashSet;
 
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.src.ChunkCoordIntPair;
 import net.minecraft.src.DedicatedServer;
+import net.minecraft.src.FCAddOnHandler;
+import net.minecraft.src.World;
 
 public class EventRegistry {
 
@@ -48,6 +51,40 @@ public class EventRegistry {
 		{
 			handler.serverAboutToStart(server);
 		}
+	}
+	
+	
+	public static Boolean shouldUnloadChunk(World world, ChunkCoordIntPair chunkCoords) {
+		Boolean result = true;
+		for (IEventHandler handler : eventhandlers)
+		{
+			result = handler.shouldUnloadChunk(world, chunkCoords);
+			if (!result) {
+				break;
+			}
+		}
+		return result;
+	}
+	
+	public static Boolean hasLoadedChunksForDimension(int dimId) {
+		Boolean result = false;
+		for (IEventHandler handler : eventhandlers)
+		{
+			result = handler.hasLoadedChunksForDimension(dimId);
+			if (result) {
+				break;
+			}
+		}
+		return result;
+	}
+	
+	public static HashSet<ChunkCoordIntPair> loadedChunksForDimension(int dimId) {
+		HashSet<ChunkCoordIntPair> result = new HashSet<ChunkCoordIntPair>();
+		for (IEventHandler handler : eventhandlers)
+		{
+			result.addAll(handler.loadedChunksForDimension(dimId));
+		}
+		return result;
 	}
 	
 }
