@@ -252,6 +252,8 @@ def movetodist(soulforge_dir):
     copytree(nonbtweditsdir, os.path.join(binarypatcherdir, 'nonbtwedits'))
 
     copytree(os.path.join(soulforge_dir, 'srccustomores', 'common', 'customore', 'resources'), os.path.join(binarypatcherdir, 'nonbtwedits', 'MINECRAFT-JAR', 'customore', 'resources'))
+    copytree(os.path.join(soulforge_dir, 'srccustomores', 'minecraft', 'customore', 'textures'), os.path.join(binarypatcherdir, 'nonbtwedits', 'MINECRAFT-JAR', 'customore', 'textures'))
+
     copytree(os.path.join(soulforge_dir, 'srccustomores', 'common', 'customore', 'resources'), os.path.join(binarypatcherdir, 'nonbtwedits', 'MINECRAFT_SERVER-JAR', 'customore', 'resources'))
 
     copytree(os.path.join(soulforge_dir, 'srcbiomesoplenty', 'minecraft', 'biomesoplenty', 'textures'), os.path.join(binarypatcherdir, 'nonbtwedits', 'MINECRAFT-JAR', 'biomesoplenty', 'textures'))

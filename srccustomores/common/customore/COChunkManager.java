@@ -122,7 +122,6 @@ public class COChunkManager {
 	}
 	
 	public HashSet<ChunkCoordIntPair> loadedChunksForDimension(int dimId) {
-
 		return getLoadedChunksForDimension(String.valueOf(dimId));
 	}
 

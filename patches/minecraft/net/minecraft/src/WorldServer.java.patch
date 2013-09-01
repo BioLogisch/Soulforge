@@ -1,0 +1,15 @@
+--- ../src_base/minecraft/net/minecraft/src/WorldServer.java
++++ ../src/minecraft/net/minecraft/src/WorldServer.java
+@@ -267,10 +267,11 @@
+         int var1 = 0;
+         int var2 = 0;
+         Iterator var3 = this.activeChunkSet.iterator();
+-
+         while (var3.hasNext())
+         {
++        	
+             ChunkCoordIntPair var4 = (ChunkCoordIntPair)var3.next();
++            
+             int var5 = var4.chunkXPos * 16;
+             int var6 = var4.chunkZPos * 16;
+             this.theProfiler.startSection("getChunk");

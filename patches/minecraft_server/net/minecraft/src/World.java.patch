@@ -22,9 +22,9 @@
              }
          }
 -
-+        
-+        this.activeChunkSet.addAll(EventRegistry.loadedChunksForDimension(this.provider.dimensionId));
-+        
++        if (!this.isRemote) {
++        	this.activeChunkSet.addAll(EventRegistry.loadedChunksForDimension(this.provider.dimensionId));
++        }        
          this.theProfiler.endSection();
  
          if (this.ambientTickCountdown > 0)
