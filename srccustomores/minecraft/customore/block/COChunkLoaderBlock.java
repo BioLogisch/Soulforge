@@ -24,7 +24,9 @@ public class COChunkLoaderBlock extends Block implements ITileEntityProvider {
 	public void breakBlock(World world, int x, int y, int z, int par5, int par6)
 	{
 		COChunkLoaderTileEntity chunkloader = (COChunkLoaderTileEntity)world.getBlockTileEntity(x, y, z);
-		chunkloader.destroyedChunkLoader(world, x, y, z);
+		if (!world.isRemote) {
+			chunkloader.destroyedChunkLoader(world, x, y, z);
+		}
 		world.removeBlockTileEntity(x, y, z);
 	}
 
@@ -34,7 +36,9 @@ public class COChunkLoaderBlock extends Block implements ITileEntityProvider {
 	public void onPostBlockPlaced(World world, int x, int y, int z, int dontknow)
 	{
 		COChunkLoaderTileEntity chunkloader = (COChunkLoaderTileEntity)world.getBlockTileEntity(x, y, z);
-		chunkloader.placedChunkLoader(world, x, y, z);
+		if (!world.isRemote) {
+			chunkloader.placedChunkLoader(world, x, y, z);
+		}
 	}
 
 
