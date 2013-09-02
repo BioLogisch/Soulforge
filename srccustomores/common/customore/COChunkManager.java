@@ -65,7 +65,7 @@ public class COChunkManager {
 			IChunkProvider provider = world.getChunkProvider();
 						
 			for (ChunkCoordIntPair chunkCoordIntPair : coords) {
-				COLogger.log.fine("Loading chunks : " + chunkCoordIntPair);
+				COLogger.log.fine("Loading chunks : " + chunkCoordIntPair + " for world " + id + " provider " + provider);
 				provider.provideChunk(chunkCoordIntPair.chunkXPos, chunkCoordIntPair.chunkZPos);
 			}
 		}
@@ -112,7 +112,7 @@ public class COChunkManager {
 
 	public Boolean canUnloadChunk(World world, ChunkCoordIntPair chunkCoord) {
 		String dimId = String.valueOf(world.provider.dimensionId);
-		Boolean result = !getLoadedChunksForDimension(dimId).contains(chunkCoord);
+		Boolean result = !getLoadedChunksForDimension(dimId).contains(chunkCoord);		
 		return result;
 	}
 	
