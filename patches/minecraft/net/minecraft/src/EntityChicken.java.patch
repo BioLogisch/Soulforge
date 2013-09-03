@@ -1,0 +1,45 @@
+--- ../src_base/minecraft/net/minecraft/src/EntityChicken.java
++++ ../src/minecraft/net/minecraft/src/EntityChicken.java
+@@ -80,12 +80,31 @@
+ 
+         this.field_70886_e += this.field_70889_i * 2.0F;
+ 
++
+         if (!this.isChild() && !this.worldObj.isRemote && --this.timeUntilNextEgg <= 0 && this.m_bIsFed)
+         {
++
+             this.playSound("mob.slime.attack", 1.0F, this.getSoundPitch());
+             this.playSound(this.getDeathSound(), this.getSoundVolume(), (this.getSoundPitch() + 0.25F) * (this.getSoundPitch() + 0.25F));
+-            this.dropItem(Item.egg.itemID, 1);
+-            this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
++            Boolean foundHopper = false;
++            for (double x = -1; x < 2 && !foundHopper; x+= 1) {
++        		for (double z = -1; z < 2  && !foundHopper; z+= 1) {
++        			for (int y = -1; y < 0  && !foundHopper; y++) {
++        		    	TileEntity entity = this.worldObj.getBlockTileEntity((int)Math.floor(this.posX+x), (int)Math.floor(this.posY + y), (int)Math.floor(this.posZ + z));
++        		    	if (entity != null && entity instanceof FCTileEntityHopper) {
++        		    		FCTileEntityHopper hopper = (FCTileEntityHopper)entity;
++        		    		if(FCUtilsInventory.AddSingleItemToInventory(hopper, Item.egg.itemID, 0)) {
++            		    		foundHopper = true;
++        		    		}
++        		    	}
++                	}	
++            	}	 
++        	}
++            if (!foundHopper) {
++            	this.dropItem(Item.egg.itemID, 1);
++            }
++            
++            this.timeUntilNextEgg = this.rand.nextInt(60) + 60;
+             this.m_bIsFed = false;
+         }
+     }
+@@ -296,7 +315,7 @@
+     private void OnFed()
+     {
+         this.m_bIsFed = true;
+-        this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
++        this.timeUntilNextEgg = this.rand.nextInt(60) + 60;
+         this.worldObj.playSoundAtEntity(this, "random.pop", 0.25F, (this.getSoundPitch() + 0.25F) * (this.getSoundPitch() + 0.25F) * 1.5F);
+         this.worldObj.playSoundAtEntity(this, this.getDeathSound(), this.getSoundVolume(), this.rand.nextFloat() * 0.2F + 1.5F);
+     }

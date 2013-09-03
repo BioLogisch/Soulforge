@@ -1,0 +1,27 @@
+--- ../src_base/minecraft_server/net/minecraft/src/EntityChicken.java
++++ ../src/minecraft_server/net/minecraft/src/EntityChicken.java
+@@ -84,7 +84,23 @@
+         {
+             this.playSound("mob.slime.attack", 1.0F, this.getSoundPitch());
+             this.playSound(this.getDeathSound(), this.getSoundVolume(), (this.getSoundPitch() + 0.25F) * (this.getSoundPitch() + 0.25F));
+-            this.dropItem(Item.egg.itemID, 1);
++            Boolean foundHopper = false;
++            for (double x = -1; x < 2 && !foundHopper; x+= 1) {
++        		for (double z = -1; z < 2  && !foundHopper; z+= 1) {
++        			for (int y = -1; y < 0  && !foundHopper; y++) {
++        		    	TileEntity entity = this.worldObj.getBlockTileEntity((int)Math.floor(this.posX+x), (int)Math.floor(this.posY + y), (int)Math.floor(this.posZ + z));
++        		    	if (entity != null && entity instanceof FCTileEntityHopper) {
++        		    		FCTileEntityHopper hopper = (FCTileEntityHopper)entity;
++        		    		if(FCUtilsInventory.AddSingleItemToInventory(hopper, Item.egg.itemID, 0)) {
++            		    		foundHopper = true;
++        		    		}
++        		    	}
++                	}	
++            	}	 
++        	}
++            if (!foundHopper) {
++            	this.dropItem(Item.egg.itemID, 1);
++            }
+             this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
+             this.m_bIsFed = false;
+         }
