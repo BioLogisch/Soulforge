@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.src.BiomeGenBase;
 import net.minecraft.src.Block;
 import net.minecraft.src.EntitySlime;
+import net.minecraft.src.EntityWitch;
 import net.minecraft.src.SpawnListEntry;
 import net.minecraft.src.World;
 import net.minecraft.src.WorldGenTallGrass;
@@ -34,7 +35,9 @@ public class BiomeGenSludgepit extends BiomeGenBase
 		customBiomeDecorator.deadBushPerChunk = 5;
 		//customBiomeDecorator.algaePerChunk = 2;
 		//customBiomeDecorator.poisonWaterPerChunk = 5;
-		spawnableCreatureList.add(new SpawnListEntry(EntitySlime.class, 1, 1, 1));
+		spawnableMonsterList.add(new SpawnListEntry(EntitySlime.class, 1, 1, 1));
+		spawnableMonsterList.add(new SpawnListEntry(EntityWitch.class, 1, 1, 1));
+
 		waterColorMultiplier = 11506176;
 	}
 	
