@@ -51,9 +51,9 @@
       * (abstract) Protected helper method to write subclass entity data to NBT.
       */
      public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
-@@ -808,4 +780,31 @@
-             }
-         }
+@@ -824,4 +796,31 @@
+     {
+         return 1.25D;
      }
 +    
 +    @Override
