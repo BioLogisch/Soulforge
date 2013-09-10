@@ -1,0 +1,30 @@
+--- ../src_base/minecraft_server/net/minecraft/src/FCBlockBlockDispenser.java
++++ ../src/minecraft_server/net/minecraft/src/FCBlockBlockDispenser.java
+@@ -2,6 +2,8 @@
+ 
+ import java.util.List;
+ import java.util.Random;
++
++import biomesoplenty.api.BOPAPIBlocks;
+ 
+ public class FCBlockBlockDispenser extends BlockContainer implements FCIBlock
+ {
+@@ -682,7 +684,17 @@
+                                 int var29;
+                                 int var34;
+ 
+-                                if (var17.itemID < 256)
++                                if (var17.itemID < 256 || BOPAPIBlocks.logs1.blockID == var17.itemID
++                                		|| BOPAPIBlocks.logs1.blockID == var17.itemID
++                                		|| BOPAPIBlocks.logs2.blockID == var17.itemID
++                                		|| BOPAPIBlocks.logs3.blockID == var17.itemID
++                                		|| BOPAPIBlocks.logs4.blockID == var17.itemID
++                                		|| BOPAPIBlocks.leaves1.blockID == var17.itemID
++                                		|| BOPAPIBlocks.leaves2.blockID == var17.itemID
++                                		|| BOPAPIBlocks.leavesColourized.blockID == var17.itemID
++                                        || BOPAPIBlocks.saplings.blockID == var17.itemID
++                                        || BOPAPIBlocks.saplingsColourized.blockID == var17.itemID
++                                		|| BOPAPIBlocks.planks.blockID == var17.itemID)
+                                 {
+                                     if (var17.itemID == FCBetterThanWolves.fcAestheticVegetation.blockID && var17.getItemDamage() == 2)
+                                     {

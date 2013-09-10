@@ -1,0 +1,11 @@
+--- ../src_base/minecraft_server/net/minecraft/src/WorldGenerator.java
++++ ../src/minecraft_server/net/minecraft/src/WorldGenerator.java
+@@ -8,7 +8,7 @@
+      * Sets wither or not the generator should notify blocks of blocks it changes. When the world is first generated,
+      * this is false, when saplings grow, this is true.
+      */
+-    private final boolean doBlockNotify;
++    protected final boolean doBlockNotify;
+ 
+     public WorldGenerator()
+     {

@@ -1,0 +1,40 @@
+--- ../src_base/minecraft/net/minecraft/src/FCBlockBlockDispenser.java
++++ ../src/minecraft/net/minecraft/src/FCBlockBlockDispenser.java
+@@ -2,6 +2,8 @@
+ 
+ import java.util.List;
+ import java.util.Random;
++
++import biomesoplenty.api.BOPAPIBlocks;
+ 
+ public class FCBlockBlockDispenser extends BlockContainer implements FCIBlock
+ {
+@@ -279,7 +281,7 @@
+             {
+                 if (var9 != Block.furnaceIdle.blockID && var9 != Block.furnaceBurning.blockID)
+                 {
+-                    if (var5.canSilkHarvest(var6) || var9 == Block.leaves.blockID || var9 == FCBetterThanWolves.fcLeaves.blockID || var9 == Block.tallGrass.blockID || var9 == Block.vine.blockID)
++                    if (var5.canSilkHarvest(var6) || var9 == BOPAPIBlocks.leaves1.blockID || var9 == BOPAPIBlocks.leaves2.blockID || var9 == BOPAPIBlocks.leavesColourized.blockID || var9 == Block.leaves.blockID || var9 == FCBetterThanWolves.fcLeaves.blockID || var9 == Block.tallGrass.blockID || var9 == Block.vine.blockID)
+                     {
+                         ItemStack var11 = var5.createStackedBlock(var6);
+ 
+@@ -683,8 +685,17 @@
+                                 int var27 = -1;
+                                 int var29;
+                                 int var34;
+-
+-                                if (var17.itemID < 256)
++                                if (var17.itemID < 256 || BOPAPIBlocks.logs1.blockID == var17.itemID
++                                		|| BOPAPIBlocks.logs1.blockID == var17.itemID
++                                		|| BOPAPIBlocks.logs2.blockID == var17.itemID
++                                		|| BOPAPIBlocks.logs3.blockID == var17.itemID
++                                		|| BOPAPIBlocks.logs4.blockID == var17.itemID
++                                		|| BOPAPIBlocks.leaves1.blockID == var17.itemID
++                                		|| BOPAPIBlocks.leaves2.blockID == var17.itemID
++                                		|| BOPAPIBlocks.leavesColourized.blockID == var17.itemID
++                                        || BOPAPIBlocks.saplings.blockID == var17.itemID
++                                        || BOPAPIBlocks.saplingsColourized.blockID == var17.itemID
++                                		|| BOPAPIBlocks.planks.blockID == var17.itemID)
+                                 {
+                                     if (var17.itemID == FCBetterThanWolves.fcAestheticVegetation.blockID && var17.getItemDamage() == 2)
+                                     {

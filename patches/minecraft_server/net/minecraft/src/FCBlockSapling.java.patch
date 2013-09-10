@@ -1,0 +1,26 @@
+--- ../src_base/minecraft_server/net/minecraft/src/FCBlockSapling.java
++++ ../src/minecraft_server/net/minecraft/src/FCBlockSapling.java
+@@ -103,14 +103,18 @@
+                 var7 = FCUtilsTrees.GenerateTrees(var1, var5, var2, var3, var4, 4 + var5.nextInt(7), 3, 3, false);
+             }
+         }
+-        else if (var5.nextInt(10) == 0)
+-        {
+-            FCUtilsGenBigTree var13 = new FCUtilsGenBigTree(true);
+-            var7 = var13.generate(var1, var5, var2, var3, var4);
+-        }
++        //else if (var5.nextInt(10) == 0)
++        //{
++        //    FCUtilsGenBigTree var13 = new FCUtilsGenBigTree(true);
++        //    var7 = var13.generate(var1, var5, var2, var3, var4);
++        // }
+         else
+         {
+             var7 = FCUtilsTrees.GenerateTrees(var1, var5, var2, var3, var4);
++            if (!var7 && var6 == 0 && var5.nextInt(5) == 0 ) {
++            	 FCUtilsGenBigTree var13 = new FCUtilsGenBigTree(true);
++                 var7 = var13.generate(var1, var5, var2, var3, var4);
++            }
+         }
+ 
+         if (!var7)

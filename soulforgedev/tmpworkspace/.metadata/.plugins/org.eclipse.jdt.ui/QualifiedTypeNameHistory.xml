@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="soulforge.utils.EventRegistry"/>
+<fullyQualifiedTypeName name="net.minecraft.src.TileEntity"/>
+<fullyQualifiedTypeName name="net.minecraft.src.FCTileEntityHopper"/>
+<fullyQualifiedTypeName name="net.minecraft.src.FCUtilsInventory"/>
+<fullyQualifiedTypeName name="net.minecraft.src.FCAddOn"/>
+<fullyQualifiedTypeName name="net.minecraft.src.FCAddOnHandler"/>
+<fullyQualifiedTypeName name="java.lang.Boolean"/>
+<fullyQualifiedTypeName name="net.minecraft.src.Vec3"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+</qualifiedTypeNameHistroy>

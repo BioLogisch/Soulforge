@@ -11,24 +11,24 @@ import biomesoplenty.configuration.BOPConfiguration;
 public class WorldGenPineTree extends WorldGenerator
 {
 	@Override
-	public boolean generate(World var1, Random var2, int var3, int var4, int var5)
+	public boolean generate(World var1, Random var2, int x, int y, int z)
 	{
-		while (var1.isAirBlock(var3, var4, var5) && var4 > 2)
+		while (var1.isAirBlock(x, y, z) && y > 2)
 		{
-			--var4;
+			--y;
 		}
 
-		int var6 = var1.getBlockId(var3, var4, var5);
+		int var6 = var1.getBlockId(x, y, z);
 
 		if (var6 != Block.grass.blockID /*&& var6 != Blocks.hardDirt.get().blockID*/ && var6 != Block.stone.blockID && var6 != Block.dirt.blockID)
 			return false;
 		else
 		{
-			for (int var7 = -2; var7 <= 2; ++var7)
+			for (int xoff = -2; xoff <= 2; ++xoff)
 			{
-				for (int var8 = -2; var8 <= 2; ++var8)
+				for (int zoff = -2; zoff <= 2; ++zoff)
 				{
-					if (var1.isAirBlock(var3 + var7, var4 - 1, var5 + var8) && var1.isAirBlock(var3 + var7, var4 - 2, var5 + var8) && !var1.isAirBlock(var3 + var7, var4, var5 + var8))
+					if (var1.isAirBlock(x + xoff, y - 1, z + zoff) && var1.isAirBlock(x + xoff, y - 2, z + zoff) && !var1.isAirBlock(x + xoff, y, z + zoff))
 						return false;
 				}
 			}
@@ -59,126 +59,126 @@ public class WorldGenPineTree extends WorldGenerator
 
 			if (var99 == 0)
 			{
-				var1.setBlock(var3, var4, var5, Block.dirt.blockID);
-				var1.setBlock(var3, var4 + 1, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 2, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 3, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 4, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 5, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 6, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 7, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 8, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 9, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 10, var5, logID, logMeta, 2);
+				var1.setBlock(x, y, z, Block.dirt.blockID);
+				var1.setBlock(x, y + 1, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 2, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 3, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 4, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 5, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 6, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 7, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 8, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 9, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 10, z, logID, logMeta, 2);
 
-				var1.setBlock(var3 + 1, var4 + 6, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 6, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 6, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 6, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 6, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 6, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 6, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 6, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 6, var5 - 2, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 2, var4 + 6, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 2, var4 + 6, var5 - 2, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 6, var5 + 2, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 2, var4 + 6, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 2, var4 + 6, var5 + 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 6, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 6, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 6, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 6, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 6, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 6, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 6, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 6, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 6, z - 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 2, y + 6, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 2, y + 6, z - 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 6, z + 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 2, y + 6, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 2, y + 6, z + 2, leavesID, leavesMeta, 2);
 
-				var1.setBlock(var3 + 1, var4 + 8, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 8, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 8, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 8, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 8, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 8, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 8, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 8, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 8, var5 - 2, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 2, var4 + 8, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 2, var4 + 8, var5 - 2, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 8, var5 + 2, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 2, var4 + 8, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 2, var4 + 8, var5 + 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 8, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 8, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 8, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 8, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 8, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 8, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 8, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 8, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 8, z - 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 2, y + 8, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 2, y + 8, z - 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 8, z + 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 2, y + 8, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 2, y + 8, z + 2, leavesID, leavesMeta, 2);
 
-				var1.setBlock(var3 + 1, var4 + 10, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 10, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 10, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 10, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 10, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 10, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 10, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 10, var5 - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 10, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 10, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 10, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 10, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 10, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 10, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 10, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 10, z - 1, leavesID, leavesMeta, 2);
 
-				var1.setBlock(var3 + 1, var4 + 11, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 11, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 11, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 11, var5 - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 11, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 11, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 11, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 11, z - 1, leavesID, leavesMeta, 2);
 
-				var1.setBlock(var3, var4 + 12, var5, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 12, z, leavesID, leavesMeta, 2);
 			}
 
 			if (var99 == 1)
 			{
-				var1.setBlock(var3, var4, var5, Block.dirt.blockID);
-				var1.setBlock(var3, var4 + 1, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 2, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 3, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 4, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 5, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 6, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 7, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 8, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 9, var5, logID, logMeta, 2);
-				var1.setBlock(var3, var4 + 10, var5, logID, logMeta, 2);
+				var1.setBlock(x, y, z, Block.dirt.blockID);
+				var1.setBlock(x, y + 1, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 2, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 3, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 4, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 5, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 6, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 7, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 8, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 9, z, logID, logMeta, 2);
+				var1.setBlock(x, y + 10, z, logID, logMeta, 2);
 
-				var1.setBlock(var3 + 1, var4 + 6, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 6, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 6, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 6, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 6, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 6, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 6, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 6, var5 - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 6, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 6, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 6, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 6, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 6, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 6, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 6, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 6, z - 1, leavesID, leavesMeta, 2);
 
-				var1.setBlock(var3 + 1, var4 + 6, var5 - 2, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 2, var4 + 6, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 2, var4 + 6, var5 - 2, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 6, var5 + 2, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 2, var4 + 6, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 2, var4 + 6, var5 + 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 6, z - 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 2, y + 6, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 2, y + 6, z - 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 6, z + 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 2, y + 6, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 2, y + 6, z + 2, leavesID, leavesMeta, 2);
 
-				var1.setBlock(var3 + 1, var4 + 8, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 8, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 8, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 8, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 8, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 8, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 8, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 8, var5 - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 8, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 8, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 8, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 8, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 8, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 8, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 8, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 8, z - 1, leavesID, leavesMeta, 2);
 
-				var1.setBlock(var3 - 1, var4 + 8, var5 - 2, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 2, var4 + 8, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 2, var4 + 8, var5 - 2, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 8, var5 + 2, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 2, var4 + 8, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 2, var4 + 8, var5 + 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 8, z - 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 2, y + 8, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 2, y + 8, z - 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 8, z + 2, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 2, y + 8, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 2, y + 8, z + 2, leavesID, leavesMeta, 2);
 
-				var1.setBlock(var3 + 1, var4 + 10, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 10, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 10, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 10, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 10, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 + 1, var4 + 10, var5 - 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 10, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 10, var5 - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 10, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 10, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 10, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 10, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 10, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 10, z - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 10, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 10, z - 1, leavesID, leavesMeta, 2);
 
-				var1.setBlock(var3 + 1, var4 + 11, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3 - 1, var4 + 11, var5, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 11, var5 + 1, leavesID, leavesMeta, 2);
-				var1.setBlock(var3, var4 + 11, var5 - 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x + 1, y + 11, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x - 1, y + 11, z, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 11, z + 1, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 11, z - 1, leavesID, leavesMeta, 2);
 
-				var1.setBlock(var3, var4 + 12, var5, leavesID, leavesMeta, 2);
+				var1.setBlock(x, y + 12, z, leavesID, leavesMeta, 2);
 			}
 
 			return true;
