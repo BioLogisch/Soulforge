@@ -1,6 +1,15 @@
 package biomesoplenty.world.layer;
 
+import biomesoplenty.configuration.BOPConfiguration;
 import net.minecraft.src.GenLayer;
+import net.minecraft.src.GenLayerAddIsland;
+import net.minecraft.src.GenLayerAddMushroomIsland;
+import net.minecraft.src.GenLayerBiome;
+import net.minecraft.src.GenLayerHills;
+import net.minecraft.src.GenLayerRiver;
+import net.minecraft.src.GenLayerRiverInit;
+import net.minecraft.src.GenLayerSmooth;
+import net.minecraft.src.GenLayerZoom;
 import net.minecraft.src.WorldType;
 
 public abstract class BiomeLayer extends GenLayer
@@ -16,7 +25,9 @@ public abstract class BiomeLayer extends GenLayer
 		obj = new BiomeLayerIsland(3L, (obj));
 		obj = new BiomeLayerZoom(2003L, (obj));
 		obj = new BiomeLayerIsland(4L, (obj));
-
+		if (BOPConfiguration.biomeGenConfigFile.getBoolean("mushroomGeneration")) {
+			 	obj = new BiomeLayerMushroom(5L, obj);
+		}
 		byte size = 4;
 
 		BiomeLayer obj1 = obj;

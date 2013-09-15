@@ -6,6 +6,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.minecraft.src.BiomeGenBase;
+import net.minecraft.src.BiomeGenDesert;
+import net.minecraft.src.BiomeGenJungle;
+import net.minecraft.src.BiomeGenMushroomIsland;
+import net.minecraft.src.BiomeGenSwamp;
 import net.minecraft.src.WorldType;
 import biomesoplenty.biomes.BiomeGenAlps;
 import biomesoplenty.biomes.BiomeGenArctic;
@@ -115,12 +119,17 @@ public class BOPBiomes
 	public static final BiomeGenBase volcano = new BiomeGenVolcano(244).setColor(9286496).setBiomeName("Volcano").setDisableRain().setMinMaxHeight(0.6F, 0.9F).setTemperatureRainfall(2.0F, 0.0F);
 	public static final BiomeGenBase wetland = new BiomeGenWetland(246).setColor(522674).setBiomeName("Wetland").func_76733_a(9154376).setMinMaxHeight(-0.2F, 0.4F).setTemperatureRainfall(0.8F, 0.9F);
 	public static final BiomeGenBase woodland = new BiomeGenWoodland(247).setColor(353825).setBiomeName("Woodland").func_76733_a(5159473).setTemperatureRainfall(1.7F, 0.2F).setMinMaxHeight(0.3F, 0.4F);
-    
+	public static final BiomeGenBase desert = new BiomeGenDesert(2).setColor(16421912).setBiomeName("Desert").setDisableRain().setTemperatureRainfall(2.0F, 0.0F).setMinMaxHeight(0.1F, 0.2F);
+	public static final BiomeGenBase jungle = new BiomeGenJungle(21).setColor(5470985).setBiomeName("Jungle").func_76733_a(5470985).setTemperatureRainfall(1.2F, 0.9F).setMinMaxHeight(0.2F, 0.4F);
+	public static final BiomeGenBase swamp = new BiomeGenSwamp(6).setColor(522674).setBiomeName("Swampland").func_76733_a(9154376).setMinMaxHeight(-0.2F, 0.1F).setTemperatureRainfall(0.8F, 0.9F);
+    public static final BiomeGenBase mushroomIsland = (new BiomeGenMushroomIsland(14)).setColor(16711935).setBiomeName("MushroomIsland").setTemperatureRainfall(0.9F, 1.0F).setMinMaxHeight(0.2F, 1.0F);
+    public static final BiomeGenBase mushroomIslandShore = (new BiomeGenMushroomIsland(15)).setColor(10486015).setBiomeName("MushroomIslandShore").setTemperatureRainfall(0.9F, 1.0F).setMinMaxHeight(-1.0F, 0.1F);
+   
     public static final ArrayList<BiomeGenBase> bopBiomes = new ArrayList<BiomeGenBase>();
     
-    public static final BiomeGenBase[] bopVillageSpawnBiomes = new BiomeGenBase[] {alps, arctic, birchForest, bog, borealForest, brushland, chaparral, coniferousForest, coniferousForestSnow, deciduousForest, dunes, fen, field, frostForest, glacier, grassland, grove, heathland, highland, /*icyHills,*/ jadeCliffs, lushSwamp, marsh, meadow, moor, mountain, mysticGrove, oasis, ominousWoods, originValley, polar, prairie, rainforest, redwoodForest, sacredSprings, savanna, scrubland, shield, shrubland, sludgepit, spruceWoods, steppe, temperateRainforest, thicket, timber, tropicalRainforest, tropics, tundra, wetland, woodland };
+    public static final BiomeGenBase[] bopVillageSpawnBiomes = new BiomeGenBase[] {alps, arctic, birchForest, bog, borealForest, brushland, chaparral, coniferousForest, coniferousForestSnow, deciduousForest, dunes, fen, field, frostForest, glacier, grassland, grove, heathland, highland, /*icyHills,*/ jadeCliffs, lushSwamp, marsh, meadow, moor, mountain, mysticGrove, oasis, ominousWoods, originValley, polar, prairie, rainforest, redwoodForest, sacredSprings, savanna, scrubland, shield, shrubland, sludgepit, spruceWoods, steppe, temperateRainforest, thicket, timber, tropicalRainforest, tropics, tundra, wetland, woodland, desert, jungle };
     
-    public static final BiomeGenBase[] bopStrongholdSpawnBiomes = new BiomeGenBase[] {alps, arctic, birchForest, bog, borealForest, brushland, chaparral, coniferousForest, coniferousForestSnow, deciduousForest, dunes, fen, field, frostForest, glacier, grassland, grove, heathland, highland, /*icyHills,*/ jadeCliffs, lushSwamp, marsh, meadow, moor, mountain, mysticGrove, /*oasis,*/ ominousWoods, originValley, polar, prairie, rainforest, redwoodForest, sacredSprings, savanna, scrubland, shield, shrubland, sludgepit, spruceWoods, steppe, temperateRainforest, thicket, timber, tropicalRainforest, tropics, tundra, volcano, wetland, woodland };
+    public static final BiomeGenBase[] bopStrongholdSpawnBiomes = new BiomeGenBase[] {alps, arctic, birchForest, bog, borealForest, brushland, chaparral, coniferousForest, coniferousForestSnow, deciduousForest, dunes, fen, field, frostForest, glacier, grassland, grove, heathland, highland, /*icyHills,*/ jadeCliffs, lushSwamp, marsh, meadow, moor, mountain, mysticGrove, /*oasis,*/ ominousWoods, originValley, polar, prairie, rainforest, redwoodForest, sacredSprings, savanna, scrubland, shield, shrubland, sludgepit, spruceWoods, steppe, temperateRainforest, thicket, timber, tropicalRainforest, tropics, tundra, volcano, wetland, woodland, desert, jungle };
     
     public BOPBiomes(WorldType worldtype)
     {
@@ -179,8 +188,12 @@ public class BOPBiomes
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("volcanoGeneration")) bopBiomes.add(volcano);
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("wetlandGeneration")) bopBiomes.add(wetland);
 		if (BOPConfiguration.biomeGenConfigFile.getBoolean("woodlandGeneration")) bopBiomes.add(woodland);
-	
-		
+		if (BOPConfiguration.biomeGenConfigFile.getBoolean("desertGeneration")) bopBiomes.add(desert);
+		if (BOPConfiguration.biomeGenConfigFile.getBoolean("jungleGeneration")) bopBiomes.add(jungle);
+		if (BOPConfiguration.biomeGenConfigFile.getBoolean("swampGeneration")) bopBiomes.add(swamp);
+	//	if (BOPConfiguration.biomeGenConfigFile.getBoolean("mushroomGeneration")) bopBiomes.add(mushroomIsland);
+	//	if (BOPConfiguration.biomeGenConfigFile.getBoolean("mushroomGeneration")) bopBiomes.add(mushroomIslandShore);
+
 	}
 	
     public static ArrayList<BiomeGenBase> getBiomesForWorldType() 

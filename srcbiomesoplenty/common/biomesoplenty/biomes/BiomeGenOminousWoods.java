@@ -7,6 +7,7 @@ import net.minecraft.src.Block;
 import net.minecraft.src.EntityBat;
 import net.minecraft.src.EntityEnderman;
 import net.minecraft.src.EntitySpider;
+import net.minecraft.src.EntityWolf;
 import net.minecraft.src.FCEntityWolfDire;
 import net.minecraft.src.SpawnListEntry;
 import net.minecraft.src.WorldGenTallGrass;
@@ -39,9 +40,9 @@ public class BiomeGenOminousWoods extends BiomeGenBase
 		spawnableMonsterList.clear();
 		spawnableCreatureList.clear();
 		spawnableWaterCreatureList.clear();
+		spawnableCreatureList.add(new SpawnListEntry(EntityWolf.class, 5, 4, 4));
 		spawnableMonsterList.add(new SpawnListEntry(EntitySpider.class, 9, 1, 2));
 		spawnableMonsterList.add(new SpawnListEntry(EntityEnderman.class, 10, 1, 4));
-		spawnableMonsterList.add(new SpawnListEntry(FCEntityWolfDire.class, 1, 1, 1));
 		spawnableCaveCreatureList.add(new SpawnListEntry(EntityBat.class, 10, 8, 8));
 	}
 

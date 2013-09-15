@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import biomesoplenty.configuration.BOPBiomes;
 import net.minecraft.src.BiomeGenBase;
 import net.minecraft.src.Block;
 import net.minecraft.src.Chunk;
@@ -660,7 +661,10 @@ public abstract class COMapGenOreDistribution extends MapGenStructure implements
                     			var = 2;
                     		}
                     		strataMeta = block.GetMetadataConversionForStrataLevel(var, 0);
-                    	}
+                    	} else if (block.HasStrata() && (world.getBiomeGenForCoords(cx, cz) == BOPBiomes.volcano || world.getBiomeGenForCoords(cx - 32, cz) == BOPBiomes.volcano || world.getBiomeGenForCoords(cx + 32, cz) == BOPBiomes.volcano || world.getBiomeGenForCoords(cx, cz - 32) == BOPBiomes.volcano || world.getBiomeGenForCoords(cx, cz + 32) == BOPBiomes.volcano))
+                        {
+                    		strataMeta = block.GetMetadataConversionForStrataLevel(1, 0);;
+                        }
 
                     	int meta = match & 65535;
                     	if (strataMeta > 0) {

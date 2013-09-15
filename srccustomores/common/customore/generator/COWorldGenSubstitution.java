@@ -3,6 +3,7 @@ package customore.generator;
 import java.util.Map;
 import java.util.Random;
 
+import biomesoplenty.configuration.BOPBiomes;
 import net.minecraft.src.BiomeGenBase;
 import net.minecraft.src.Block;
 import net.minecraft.src.Chunk;
@@ -248,7 +249,11 @@ public class COWorldGenSubstitution extends WorldGenerator implements ICOOreDist
                                                 	var = 2;
                                                 }
                                                 strataMeta = block.GetMetadataConversionForStrataLevel(var, 0);
+                                            } else if (block.HasStrata() && (world.getBiomeGenForCoords(x, z) == BOPBiomes.volcano || world.getBiomeGenForCoords(x - 32, z) == BOPBiomes.volcano || world.getBiomeGenForCoords(x + 32, z) == BOPBiomes.volcano || world.getBiomeGenForCoords(x, z - 32) == BOPBiomes.volcano || world.getBiomeGenForCoords(x, z + 32) == BOPBiomes.volcano))
+                                            {
+                                        		strataMeta = block.GetMetadataConversionForStrataLevel(1, 0);;
                                             }
+
                                             
                                             int meta = match & 65535;
                                             if (strataMeta > 0) {

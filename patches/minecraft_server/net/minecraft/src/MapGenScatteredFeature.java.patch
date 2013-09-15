@@ -13,7 +13,7 @@
  public class MapGenScatteredFeature extends MapGenStructure
  {
 -    private static List biomelist = Arrays.asList(new BiomeGenBase[] {BiomeGenBase.desert, BiomeGenBase.desertHills, BiomeGenBase.jungle, BiomeGenBase.jungleHills, BiomeGenBase.swampland});
-+    private static List biomelist = Arrays.asList(new BiomeGenBase[] {BiomeGenBase.desert, BiomeGenBase.desertHills, BiomeGenBase.jungle, BiomeGenBase.jungleHills, BiomeGenBase.swampland, BOPBiomes.timber, BOPBiomes.temperateRainforest});
++    private static List biomelist = Arrays.asList(new BiomeGenBase[] {BiomeGenBase.desert, BiomeGenBase.desertHills, BiomeGenBase.jungle, BiomeGenBase.jungleHills, BiomeGenBase.swampland, BOPBiomes.sludgepit});
  
      /** contains possible spawns for scattered features */
      private List scatteredFeatureSpawnList;
