@@ -1,6 +1,6 @@
 --- ../src_base/minecraft/net/minecraft/src/FCBetterThanWolves.java
 +++ ../src/minecraft/net/minecraft/src/FCBetterThanWolves.java
-@@ -518,7 +518,7 @@
+@@ -527,7 +527,7 @@
      public static final int fcCustomEntityEventPacketTypeSetAttackTarget = 0;
      public static final int fcCustomEntityEventPacketTypeSquidTentacleAttack = 1;
      public static StepSound fcSoundSquishFootstep = new FCStepSoundSquish("squish", 0.5F, 0.1F);
@@ -9,7 +9,7 @@
      public static int fcBlockWoodSidingItemStubID;
      public static int fcBlockWoodMouldingItemStubID;
      public static int fcBlockWoodCornerItemStubID;
-@@ -1154,8 +1154,7 @@
+@@ -1171,8 +1171,7 @@
  
      public static void SetFirePropertiesOfBlock(int var0, int var1, int var2)
      {
@@ -18,4 +18,4 @@
 +    	BlockFire.setBurnRate(var0, var1, var2);        
      }
  
-     public static boolean IsHardcoreBucketsEnabled(World var0)
+     public static boolean IsHardcoreBuoyEnabled(World var0)

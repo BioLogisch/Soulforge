@@ -17,7 +17,7 @@
          this.ambientTickCountdown = this.rand.nextInt(12000);
          this.lightUpdateBlockList = new int[32768];
          this.isRemote = false;
-@@ -2687,7 +2688,9 @@
+@@ -2477,7 +2478,9 @@
                  }
              }
          }

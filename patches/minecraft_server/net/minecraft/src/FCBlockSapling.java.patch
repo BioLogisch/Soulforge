@@ -1,6 +1,6 @@
 --- ../src_base/minecraft_server/net/minecraft/src/FCBlockSapling.java
 +++ ../src/minecraft_server/net/minecraft/src/FCBlockSapling.java
-@@ -103,14 +103,18 @@
+@@ -106,14 +106,18 @@
                  var7 = FCUtilsTrees.GenerateTrees(var1, var5, var2, var3, var4, 4 + var5.nextInt(7), 3, 3, false);
              }
          }

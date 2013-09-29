@@ -21,7 +21,7 @@ public class BiomeGenSludgepit extends BiomeGenBase
 	public BiomeGenSludgepit(int par1)
 	{
 		super(par1);
-		spawnableCreatureList.clear();
+		//spawnableCreatureList.clear();
 		spawnableWaterCreatureList.clear();
 		theBiomeDecorator = new BiomeDecoratorBOP(this);
 		customBiomeDecorator = (BiomeDecoratorBOP)theBiomeDecorator;

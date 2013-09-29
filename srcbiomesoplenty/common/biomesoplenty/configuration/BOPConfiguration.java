@@ -90,7 +90,7 @@ public class BOPConfiguration
 			properties.setProperty("temperateRainforestGeneration", "false");
 			properties.setProperty("thicketGeneration", "false");
 			properties.setProperty("timberGeneration", "false");
-			properties.setProperty("tropicalRainforestGeneration", "true");
+			properties.setProperty("tropicalRainforestGeneration", "false");
 			properties.setProperty("tropicsGeneration", "false");
 			properties.setProperty("tundraGeneration", "false");
 			properties.setProperty("volcanoGeneration", "true");
