@@ -18,7 +18,7 @@
      {
          this.stepSound = par1StepSound;
          return this;
-@@ -1384,7 +1386,7 @@
+@@ -1401,7 +1403,7 @@
          Item.itemsList[cobblestoneWall.blockID] = (new ItemMultiTextureTile(cobblestoneWall.blockID - 256, cobblestoneWall, BlockWall.types)).setUnlocalizedName("cobbleWall");
          Item.itemsList[anvil.blockID] = (new ItemAnvilBlock(anvil)).setUnlocalizedName("anvil");
  
@@ -27,7 +27,7 @@
          {
              if (blocksList[var0] != null)
              {
-@@ -1428,4 +1430,119 @@
+@@ -1445,4 +1447,119 @@
          canBlockGrass[0] = true;
          StatList.initBreakableStats();
      }

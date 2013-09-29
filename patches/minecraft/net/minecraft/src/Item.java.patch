@@ -1,6 +1,6 @@
 --- ../src_base/minecraft/net/minecraft/src/Item.java
 +++ ../src/minecraft/net/minecraft/src/Item.java
-@@ -784,4 +784,16 @@
+@@ -804,4 +804,16 @@
          StatList.initStats();
          m_bSuppressConflictWarnings = false;
      }
