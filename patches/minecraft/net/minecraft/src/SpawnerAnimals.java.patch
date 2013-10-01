@@ -17,9 +17,68 @@
 +            for (ChunkCoordIntPair chunk : EventRegistry.loadedChunksForDimension(par0WorldServer.provider.dimensionId)) {
 +            	if (!eligibleChunksForSpawning.containsKey(chunk))
 +                {
-+                    eligibleChunksForSpawning.put(chunk, Boolean.valueOf(true));
++                    eligibleChunksForSpawning.put(chunk, Boolean.valueOf(false));
 +                }
 +			}
  
              var4 = 0;
              ChunkCoordinates var34 = par0WorldServer.getSpawnPoint();
+@@ -87,6 +96,9 @@
+ 
+                         if (!((Boolean)eligibleChunksForSpawning.get(var38)).booleanValue())
+                         {
++                        	
++                        	  
++                        	  
+                             ChunkPosition var40 = getRandomSpawningPointInChunk(par0WorldServer, var38.chunkXPos, var38.chunkZPos);
+                             int var13 = var40.x;
+                             int var14 = var40.y;
+@@ -97,6 +109,8 @@
+                                 int var16 = 0;
+                                 int var17 = 0;
+ 
++                              
++                                
+                                 while (var17 < 3)
+                                 {
+                                     int var18 = var13;
+@@ -129,7 +143,7 @@
+                                                         float var29 = var26 - (float)var34.posZ;
+                                                         float var30 = var27 * var27 + var28 * var28 + var29 * var29;
+ 
+-                                                        if (var30 >= 576.0F)
++                                                        if (var30 >= 0.0F)
+                                                         {
+                                                             if (var22 == null)
+                                                             {
+@@ -155,12 +169,20 @@
+ 
+                                                             var31.setLocationAndAngles((double)var24, (double)var25, (double)var26, par0WorldServer.rand.nextFloat() * 360.0F, 0.0F);
+ 
++                                                          //  if (ChunkCoordIntPair.chunkXZ2Int(var38.chunkXPos, var38.chunkZPos) == ChunkCoordIntPair.chunkXZ2Int(-42, 25) && var37.getCreatureClass() == IMob.class) {
++                                                          //  	FCAddOnHandler.LogMessage("var31 ==  : " + var31);
++                                                          //  }
++                                                            
+                                                             if (var31.getCanSpawnHere())
+                                                             {
+                                                                 ++var16;
+                                                                 par0WorldServer.spawnEntityInWorld(var31);
+                                                                 creatureSpecificInit(var31, par0WorldServer, var24, var25, var26);
+-
++                                                               // if (ChunkCoordIntPair.chunkXZ2Int(var38.chunkXPos, var38.chunkZPos) == ChunkCoordIntPair.chunkXZ2Int(-42, 25) && var37.getCreatureClass() == IMob.class) {
++                                                               // 	FCAddOnHandler.LogMessage("Spanned !!!!!!!!!! ==  : " + var31);
++                                                               // }
++                                                                
++                                                                
+                                                                 if (var16 >= var31.getMaxSpawnedInChunk())
+                                                                 {
+                                                                     continue label104;
+@@ -170,6 +192,8 @@
+                                                             var4 += var16;
+                                                         }
+                                                     }
++                                                } else {
++                                                	
+                                                 }
+ 
+                                                 ++var23;
