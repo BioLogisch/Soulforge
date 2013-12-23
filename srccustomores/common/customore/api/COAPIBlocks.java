@@ -2,6 +2,8 @@ package customore.api;
 
 import customore.block.COChunkLoaderBlock;
 import customore.block.COItemBlockChunkLoader;
+import customore.block.COItemBlockSpawnableChunkLoader;
+import customore.block.COSpawnableChunkLoaderBlock;
 import customore.entity.COChunkLoaderTileEntity;
 import soulforge.utils.GameRegistry;
 import soulforge.utils.LanguageRegistry;
@@ -32,7 +34,8 @@ import net.minecraft.src.Material;
 public class COAPIBlocks {
 		// ChunkLoader
 		public static Block chunkloader = null;
-		
+		public static Block chunkloaderspawn = null;
+
 		public static void init()
 		{
 			initializeBlocks();
@@ -45,25 +48,35 @@ public class COAPIBlocks {
 		private static void initializeBlocks()
 		{
 			chunkloader = new COChunkLoaderBlock(4000, Material.rock).setUnlocalizedName("co.block.chunkloader");
+			chunkloaderspawn = new COSpawnableChunkLoaderBlock(4001, Material.rock).setUnlocalizedName("co.block.chunkloader.spawnable");
+
 		}
 		
 		private static void registerBlocks()
 		{
 			GameRegistry.registerCustomBlock(chunkloader, new COItemBlockChunkLoader(chunkloader.blockID));
+			GameRegistry.registerCustomBlock(chunkloaderspawn, new COItemBlockSpawnableChunkLoader(chunkloaderspawn.blockID));
+
 		}
 		
 		private static void setToolEffectiveness()
 		{
 			ItemPickaxe.SetAllPicksToBeEffectiveVsBlock(chunkloader);
+			ItemPickaxe.SetAllPicksToBeEffectiveVsBlock(chunkloaderspawn);
+
 		}
 		
 		private static void setBuoyancy()
 		{
 	        Item.itemsList[chunkloader.blockID].SetBuoyancy(0.0F);
+	        Item.itemsList[chunkloaderspawn.blockID].SetBuoyancy(0.0F);
+
 		}
 		
 		private static void localizeNames()
 		{
 			LanguageRegistry.addName(new ItemStack(chunkloader, 1, 0), "Chunkloader");
+			LanguageRegistry.addName(new ItemStack(chunkloaderspawn, 1, 0), "ChunkloaderSpawn");
+
 		}
 }

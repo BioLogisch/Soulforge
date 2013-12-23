@@ -1,0 +1,12 @@
+--- ../src_base/minecraft/net/minecraft/src/EntityMob.java
++++ ../src/minecraft/net/minecraft/src/EntityMob.java
+@@ -1,4 +1,9 @@
+ package net.minecraft.src;
++
++import java.util.List;
++
++import customore.entity.COChunkLoaderTileEntity;
++import soulforge.utils.EventRegistry;
+ 
+ public abstract class EntityMob extends EntityCreature implements IMob
+ {

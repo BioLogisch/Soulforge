@@ -11,6 +11,15 @@ public class COChunkLoaderTileEntity extends TileEntity {
 
 	public int loaderId = 1;
 	public Boolean activated = false;
+	public Boolean spawnable = false;
+
+	public COChunkLoaderTileEntity() {
+
+	}
+	
+	public COChunkLoaderTileEntity(Boolean spawnable) {
+		this.spawnable = spawnable;
+	}
 	
 	public void toogleActivation() {
 		this.activated = !this.activated;
@@ -29,7 +38,7 @@ public class COChunkLoaderTileEntity extends TileEntity {
 	}
 	
 	public String getId(int x, int y, int z) {
-		return this.worldObj.provider.dimensionId + ":" + x + ":" + y + ":" + z; 
+		return this.worldObj.provider.dimensionId + ":" + x + ":" + y + ":" + z + ":" + spawnable; 
 	}
 	
 	public String getId() {
@@ -42,6 +51,8 @@ public class COChunkLoaderTileEntity extends TileEntity {
 	   super.writeToNBT(par1);
 	   par1.setInteger("loaderId", loaderId);
 	   par1.setBoolean("activated", activated);
+	   par1.setBoolean("spawnable", spawnable);
+
 	}
 
 	@Override
@@ -50,6 +61,7 @@ public class COChunkLoaderTileEntity extends TileEntity {
 	   super.readFromNBT(par1);
 	   this.loaderId = par1.getInteger("loaderId");
 	   this.activated = par1.getBoolean("activated");
+	   this.spawnable = par1.getBoolean("spawnable");
 	}
 
 	

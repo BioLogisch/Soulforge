@@ -1,29 +1,739 @@
 --- ../src_base/minecraft_server/net/minecraft/src/SpawnerAnimals.java
 +++ ../src/minecraft_server/net/minecraft/src/SpawnerAnimals.java
-@@ -4,6 +4,8 @@
+@@ -1,306 +1,440 @@
+ package net.minecraft.src;
+ 
+ import java.util.HashMap;
++import java.util.HashSet;
  import java.util.Iterator;
  import java.util.List;
  import java.util.Random;
-+
-+import soulforge.utils.EventRegistry;
  
++import customore.util.COLogger;
++import soulforge.utils.EventRegistry;
++
  public final class SpawnerAnimals
  {
-@@ -66,7 +68,16 @@
-                     }
-                 }
-             }
+-    /** The 17x17 area around the player where mobs can spawn */
+-    private static HashMap eligibleChunksForSpawning = new HashMap();
 -
-+            
-+            for (ChunkCoordIntPair chunk : EventRegistry.loadedChunksForDimension(par0WorldServer.provider.dimensionId)) {
-+            	if (!eligibleChunksForSpawning.containsKey(chunk))
-+                {
-+                    eligibleChunksForSpawning.put(chunk, Boolean.valueOf(false));
-+                }
+-    /** An array of entity classes that spawn at night. */
+-    protected static final Class[] nightSpawnEntities = new Class[] {EntitySpider.class, EntityZombie.class, EntitySkeleton.class};
+-
+-    /**
+-     * Given a chunk, find a random position in it.
+-     */
+-    protected static ChunkPosition getRandomSpawningPointInChunk(World par0World, int par1, int par2)
+-    {
+-        Chunk var3 = par0World.getChunkFromChunkCoords(par1, par2);
+-        int var4 = par1 * 16 + par0World.rand.nextInt(16);
+-        int var5 = par2 * 16 + par0World.rand.nextInt(16);
+-        int var6 = par0World.rand.nextInt(var3 == null ? par0World.getActualHeight() : var3.getTopFilledSegment() + 16 - 1);
+-        return new ChunkPosition(var4, var6, var5);
+-    }
+-
+-    /**
+-     * adds all chunks within the spawn radius of the players to eligibleChunksForSpawning. pars: the world,
+-     * hostileCreatures, passiveCreatures. returns number of eligible chunks.
+-     */
+-    public static final int findChunksForSpawning(WorldServer par0WorldServer, boolean par1, boolean par2, boolean par3)
+-    {
+-        if (!par1 && !par2)
+-        {
+-            return 0;
+-        }
+-        else
+-        {
+-            eligibleChunksForSpawning.clear();
+-            int var4;
+-            int var5;
+-
+-            for (var4 = 0; var4 < par0WorldServer.playerEntities.size(); ++var4)
+-            {
+-                EntityPlayer var6 = (EntityPlayer)par0WorldServer.playerEntities.get(var4);
+-                int var7 = MathHelper.floor_double(var6.posX / 16.0D);
+-                var5 = MathHelper.floor_double(var6.posZ / 16.0D);
+-                byte var8 = 8;
+-
+-                for (int var9 = -var8; var9 <= var8; ++var9)
+-                {
+-                    for (int var10 = -var8; var10 <= var8; ++var10)
+-                    {
+-                        boolean var11 = var9 == -var8 || var9 == var8 || var10 == -var8 || var10 == var8;
+-                        ChunkCoordIntPair var12 = new ChunkCoordIntPair(var9 + var7, var10 + var5);
+-
+-                        if (!var11)
+-                        {
+-                            eligibleChunksForSpawning.put(var12, Boolean.valueOf(false));
+-                        }
+-                        else if (!eligibleChunksForSpawning.containsKey(var12))
+-                        {
+-                            eligibleChunksForSpawning.put(var12, Boolean.valueOf(true));
+-                        }
+-                    }
+-                }
+-            }
+-
+-            var4 = 0;
+-            ChunkCoordinates var34 = par0WorldServer.getSpawnPoint();
+-            EnumCreatureType[] var35 = EnumCreatureType.values();
+-            var5 = var35.length;
+-
+-            for (int var36 = 0; var36 < var5; ++var36)
+-            {
+-                EnumCreatureType var37 = var35[var36];
+-
+-                if ((!var37.getPeacefulCreature() || par2) && (var37.getPeacefulCreature() || par1) && (!var37.getAnimal() || par3) && par0WorldServer.countEntities(var37.getCreatureClass()) <= var37.getMaxNumberOfCreature() * eligibleChunksForSpawning.size() / 256)
+-                {
+-                    Iterator var39 = eligibleChunksForSpawning.keySet().iterator();
+-                    label104:
+-
+-                    while (var39.hasNext())
+-                    {
+-                        ChunkCoordIntPair var38 = (ChunkCoordIntPair)var39.next();
+-
+-                        if (!((Boolean)eligibleChunksForSpawning.get(var38)).booleanValue())
+-                        {
+-                            ChunkPosition var40 = getRandomSpawningPointInChunk(par0WorldServer, var38.chunkXPos, var38.chunkZPos);
+-                            int var13 = var40.x;
+-                            int var14 = var40.y;
+-                            int var15 = var40.z;
+-
+-                            if (!par0WorldServer.isBlockNormalCube(var13, var14, var15) && par0WorldServer.getBlockMaterial(var13, var14, var15) == var37.getCreatureMaterial())
+-                            {
+-                                int var16 = 0;
+-                                int var17 = 0;
+-
+-                                while (var17 < 3)
+-                                {
+-                                    int var18 = var13;
+-                                    int var19 = var14;
+-                                    int var20 = var15;
+-                                    byte var21 = 6;
+-                                    SpawnListEntry var22 = null;
+-                                    int var23 = 0;
+-
+-                                    while (true)
+-                                    {
+-                                        if (var23 < 4)
+-                                        {
+-                                            label97:
+-                                            {
+-                                                var18 += par0WorldServer.rand.nextInt(var21) - par0WorldServer.rand.nextInt(var21);
+-                                                var19 += par0WorldServer.rand.nextInt(1) - par0WorldServer.rand.nextInt(1);
+-                                                var20 += par0WorldServer.rand.nextInt(var21) - par0WorldServer.rand.nextInt(var21);
+-
+-                                                if (canCreatureTypeSpawnAtLocation(var37, par0WorldServer, var18, var19, var20))
+-                                                {
+-                                                    float var24 = (float)var18 + 0.5F;
+-                                                    float var25 = (float)var19;
+-                                                    float var26 = (float)var20 + 0.5F;
+-
+-                                                    if (par0WorldServer.getClosestPlayer((double)var24, (double)var25, (double)var26, 24.0D) == null)
+-                                                    {
+-                                                        float var27 = var24 - (float)var34.posX;
+-                                                        float var28 = var25 - (float)var34.posY;
+-                                                        float var29 = var26 - (float)var34.posZ;
+-                                                        float var30 = var27 * var27 + var28 * var28 + var29 * var29;
+-
+-                                                        if (var30 >= 576.0F)
+-                                                        {
+-                                                            if (var22 == null)
+-                                                            {
+-                                                                var22 = par0WorldServer.spawnRandomCreature(var37, var18, var19, var20);
+-
+-                                                                if (var22 == null)
+-                                                                {
+-                                                                    break label97;
+-                                                                }
+-                                                            }
+-
+-                                                            EntityLiving var31;
+-
+-                                                            try
+-                                                            {
+-                                                                var31 = (EntityLiving)var22.entityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {par0WorldServer});
+-                                                            }
+-                                                            catch (Exception var33)
+-                                                            {
+-                                                                var33.printStackTrace();
+-                                                                return var4;
+-                                                            }
+-
+-                                                            var31.setLocationAndAngles((double)var24, (double)var25, (double)var26, par0WorldServer.rand.nextFloat() * 360.0F, 0.0F);
+-
+-                                                            if (var31.getCanSpawnHere())
+-                                                            {
+-                                                                ++var16;
+-                                                                par0WorldServer.spawnEntityInWorld(var31);
+-                                                                creatureSpecificInit(var31, par0WorldServer, var24, var25, var26);
+-
+-                                                                if (var16 >= var31.getMaxSpawnedInChunk())
+-                                                                {
+-                                                                    continue label104;
+-                                                                }
+-                                                            }
+-
+-                                                            var4 += var16;
+-                                                        }
+-                                                    }
+-                                                }
+-
+-                                                ++var23;
+-                                                continue;
+-                                            }
+-                                        }
+-
+-                                        ++var17;
+-                                        break;
+-                                    }
+-                                }
+-                            }
+-                        }
+-                    }
+-                }
+-            }
+-
+-            return var4;
+-        }
+-    }
+-
+-    /**
+-     * Returns whether or not the specified creature type can spawn at the specified location.
+-     */
+-    public static boolean canCreatureTypeSpawnAtLocation(EnumCreatureType par0EnumCreatureType, World par1World, int par2, int par3, int par4)
+-    {
+-        if (par0EnumCreatureType.getCreatureMaterial() == Material.water)
+-        {
+-            return par1World.getBlockMaterial(par2, par3, par4).isLiquid() && par1World.getBlockMaterial(par2, par3 - 1, par4).isLiquid() && !par1World.isBlockNormalCube(par2, par3 + 1, par4);
+-        }
+-        else
+-        {
+-            int var5;
+-
+-            if (!par1World.doesBlockHaveSolidTopSurface(par2, par3 - 1, par4))
+-            {
+-                var5 = par1World.getBlockId(par2, par3 - 1, par4);
+-                return var5 == Block.leaves.blockID;
+-            }
+-            else
+-            {
+-                var5 = par1World.getBlockId(par2, par3 - 1, par4);
+-                return var5 != Block.bedrock.blockID && !par1World.isBlockNormalCube(par2, par3, par4) && !par1World.getBlockMaterial(par2, par3, par4).isLiquid() && !par1World.isBlockNormalCube(par2, par3 + 1, par4);
+-            }
+-        }
+-    }
+-
+-    /**
+-     * determines if a skeleton spawns on a spider, and if a sheep is a different color
+-     */
+-    private static void creatureSpecificInit(EntityLiving par0EntityLiving, World par1World, float par2, float par3, float par4)
+-    {
+-        par0EntityLiving.initCreature();
+-    }
+-
+-    /**
+-     * Called during chunk generation to spawn initial creatures.
+-     */
+-    public static void performWorldGenSpawning(World par0World, BiomeGenBase par1BiomeGenBase, int par2, int par3, int par4, int par5, Random par6Random)
+-    {
+-        List var7 = par1BiomeGenBase.getSpawnableList(EnumCreatureType.creature);
+-
+-        if (!var7.isEmpty())
+-        {
+-            while (par6Random.nextFloat() < par1BiomeGenBase.getSpawningChance())
+-            {
+-                SpawnListEntry var8 = (SpawnListEntry)WeightedRandom.getRandomItem(par0World.rand, var7);
+-                int var9 = var8.minGroupCount + par6Random.nextInt(1 + var8.maxGroupCount - var8.minGroupCount);
+-                int var10 = par2 + par6Random.nextInt(par4);
+-                int var11 = par3 + par6Random.nextInt(par5);
+-                int var12 = var10;
+-                int var13 = var11;
+-
+-                for (int var14 = 0; var14 < var9; ++var14)
+-                {
+-                    boolean var15 = false;
+-
+-                    for (int var16 = 0; !var15 && var16 < 4; ++var16)
+-                    {
+-                        int var17 = par0World.getTopSolidOrLiquidBlock(var10, var11);
+-
+-                        if (CanAnimalSpawnAtLocationDuringWorldGen(EnumCreatureType.creature, par0World, var10, var17, var11))
+-                        {
+-                            float var18 = (float)var10 + 0.5F;
+-                            float var19 = (float)var17;
+-                            float var20 = (float)var11 + 0.5F;
+-                            EntityLiving var21;
+-
+-                            try
+-                            {
+-                                var21 = (EntityLiving)var8.entityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {par0World});
+-                            }
+-                            catch (Exception var23)
+-                            {
+-                                var23.printStackTrace();
+-                                continue;
+-                            }
+-
+-                            var21.setLocationAndAngles((double)var18, (double)var19, (double)var20, par6Random.nextFloat() * 360.0F, 0.0F);
+-                            par0World.spawnEntityInWorld(var21);
+-                            creatureSpecificInit(var21, par0World, var18, var19, var20);
+-                            var15 = true;
+-                        }
+-
+-                        var10 += par6Random.nextInt(5) - par6Random.nextInt(5);
+-
+-                        for (var11 += par6Random.nextInt(5) - par6Random.nextInt(5); var10 < par2 || var10 >= par2 + par4 || var11 < par3 || var11 >= par3 + par4; var11 = var13 + par6Random.nextInt(5) - par6Random.nextInt(5))
+-                        {
+-                            var10 = var12 + par6Random.nextInt(5) - par6Random.nextInt(5);
+-                        }
+-                    }
+-                }
+-            }
+-        }
+-    }
+-
+-    public static boolean CanAnimalSpawnAtLocationDuringWorldGen(EnumCreatureType var0, World var1, int var2, int var3, int var4)
+-    {
+-        int var5 = var1.getBlockId(var2, var3, var4);
+-
+-        if (!Block.isNormalCube(var5) && !var1.getBlockMaterial(var2, var3, var4).isLiquid() && var5 != Block.leaves.blockID)
+-        {
+-            int var6 = var1.getBlockId(var2, var3 + 1, var4);
+-
+-            if (!Block.isNormalCube(var6) && var6 != Block.leaves.blockID)
+-            {
+-                int var7 = var1.getBlockId(var2, var3 - 1, var4);
+-                return Block.isNormalCube(var7) && var7 != Block.bedrock.blockID;
+-            }
+-        }
+-
+-        return false;
+-    }
++	/** The 17x17 area around the player where mobs can spawn */
++	private static HashMap eligibleChunksForSpawning = new HashMap();
++
++	/** An array of entity classes that spawn at night. */
++	protected static final Class[] nightSpawnEntities = new Class[] {EntitySpider.class, EntityZombie.class, EntitySkeleton.class};
++
++	/**
++	 * Given a chunk, find a random position in it.
++	 */
++	protected static ChunkPosition getRandomSpawningPointInChunk(World par0World, int par1, int par2)
++	{
++		Chunk var3 = par0World.getChunkFromChunkCoords(par1, par2);
++		int var4 = par1 * 16 + par0World.rand.nextInt(16);
++		int var5 = par2 * 16 + par0World.rand.nextInt(16);
++		int var6 = par0World.rand.nextInt(var3 == null ? par0World.getActualHeight() : var3.getTopFilledSegment() + 16 - 1);
++		return new ChunkPosition(var4, var6, var5);
++	}
++
++	/**
++	 * adds all chunks within the spawn radius of the players to eligibleChunksForSpawning. pars: the world,
++	 * hostileCreatures, passiveCreatures. returns number of eligible chunks.
++	 */
++	public static final int findChunksForSpawning(WorldServer wolrdServer, boolean par1, boolean par2, boolean par3)
++	{
++		if (!par1 && !par2)
++		{
++			return 0;
++		}
++		else
++		{
++			eligibleChunksForSpawning.clear();
++			int var4;
++			int var5;
++
++			for (var4 = 0; var4 < wolrdServer.playerEntities.size(); ++var4)
++			{
++				EntityPlayer var6 = (EntityPlayer)wolrdServer.playerEntities.get(var4);
++				int var7 = MathHelper.floor_double(var6.posX / 16.0D);
++				var5 = MathHelper.floor_double(var6.posZ / 16.0D);
++				byte var8 = 8;
++
++				for (int var9 = -var8; var9 <= var8; ++var9)
++				{
++					for (int var10 = -var8; var10 <= var8; ++var10)
++					{
++						boolean var11 = var9 == -var8 || var9 == var8 || var10 == -var8 || var10 == var8;
++						ChunkCoordIntPair var12 = new ChunkCoordIntPair(var9 + var7, var10 + var5);
++
++						if (!var11)
++						{
++							eligibleChunksForSpawning.put(var12, Boolean.valueOf(false));
++						}
++						else if (!eligibleChunksForSpawning.containsKey(var12))
++						{
++							eligibleChunksForSpawning.put(var12, Boolean.valueOf(true));
++						}
++					}
++				}
 +			}
 +
-+            FCAddOnHandler.LogMessage("Chunks : " + eligibleChunksForSpawning);
-+            
-             var4 = 0;
-             ChunkCoordinates var34 = par0WorldServer.getSpawnPoint();
-             EnumCreatureType[] var35 = EnumCreatureType.values();
++			spawnChunkloaderEntities(wolrdServer,eligibleChunksForSpawning);
++
++			var4 = 0;
++			ChunkCoordinates var34 = wolrdServer.getSpawnPoint();
++			EnumCreatureType[] var35 = EnumCreatureType.values();
++			var5 = var35.length;
++
++			for (int var36 = 0; var36 < var5; ++var36)
++			{
++				EnumCreatureType var37 = var35[var36];
++
++				if ((!var37.getPeacefulCreature() || par2) && (var37.getPeacefulCreature() || par1) && (!var37.getAnimal() || par3) && wolrdServer.countEntities(var37.getCreatureClass()) <= var37.getMaxNumberOfCreature() * eligibleChunksForSpawning.size() / 256)
++				{
++
++					Iterator var39 = eligibleChunksForSpawning.keySet().iterator();
++					label104:
++
++						while (var39.hasNext())
++						{
++
++							ChunkCoordIntPair var38 = (ChunkCoordIntPair)var39.next();
++
++							if (!((Boolean)eligibleChunksForSpawning.get(var38)).booleanValue())
++							{
++								ChunkPosition var40 = getRandomSpawningPointInChunk(wolrdServer, var38.chunkXPos, var38.chunkZPos);
++								int var13 = var40.x;
++								int var14 = var40.y;
++								int var15 = var40.z;
++
++								if (!wolrdServer.isBlockNormalCube(var13, var14, var15) && wolrdServer.getBlockMaterial(var13, var14, var15) == var37.getCreatureMaterial())
++								{
++									int var16 = 0;
++									int var17 = 0;
++
++									while (var17 < 3)
++									{
++										int var18 = var13;
++										int var19 = var14;
++										int var20 = var15;
++										byte var21 = 6;
++										SpawnListEntry var22 = null;
++										int var23 = 0;
++
++										while (true)
++										{
++											if (var23 < 4)
++											{
++												label97:
++												{
++												var18 += wolrdServer.rand.nextInt(var21) - wolrdServer.rand.nextInt(var21);
++												var19 += wolrdServer.rand.nextInt(1) - wolrdServer.rand.nextInt(1);
++												var20 += wolrdServer.rand.nextInt(var21) - wolrdServer.rand.nextInt(var21);
++
++
++												if (canCreatureTypeSpawnAtLocation(var37, wolrdServer, var18, var19, var20))
++												{
++													float var24 = (float)var18 + 0.5F;
++													float var25 = (float)var19;
++													float var26 = (float)var20 + 0.5F;
++
++													if (wolrdServer.getClosestPlayer((double)var24, (double)var25, (double)var26, 24.0D) == null)
++													{
++														float var27 = var24 - (float)var34.posX;
++														float var28 = var25 - (float)var34.posY;
++														float var29 = var26 - (float)var34.posZ;
++														float var30 = var27 * var27 + var28 * var28 + var29 * var29;
++
++														if (var30 >= 576.0F)
++														{
++															if (var22 == null)
++															{
++																var22 = wolrdServer.spawnRandomCreature(var37, var18, var19, var20);
++
++																if (var22 == null)
++																{
++																	break label97;
++																}
++															}
++
++															EntityLiving var31;
++
++															try
++															{
++																var31 = (EntityLiving)var22.entityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {wolrdServer});
++															}
++															catch (Exception var33)
++															{
++																var33.printStackTrace();
++																return var4;
++															}
++
++															var31.setLocationAndAngles((double)var24, (double)var25, (double)var26, wolrdServer.rand.nextFloat() * 360.0F, 0.0F);
++
++															if (var31.getCanSpawnHere())
++															{
++																++var16;
++																wolrdServer.spawnEntityInWorld(var31);
++																creatureSpecificInit(var31, wolrdServer, var24, var25, var26);
++
++																if (var16 >= var31.getMaxSpawnedInChunk())
++																{
++																	continue label104;
++																}
++															}
++
++															var4 += var16;
++														}
++													}
++												}
++
++												++var23;
++												continue;
++												}
++											}
++
++											++var17;
++											break;
++										}
++									}
++								}
++							}
++						}
++				}
++			}
++
++			return var4;
++		}
++	}
++
++
++	private static int spawnChunkloaderEntities(WorldServer wolrdServer, HashMap<ChunkCoordIntPair, Boolean> playerChunks) {
++		int counter = 0;
++
++		HashSet<ChunkCoordIntPair> chunks = EventRegistry.spawnableChunksForDimension(wolrdServer.provider.dimensionId);
++
++
++		ChunkCoordinates spawnPoint = wolrdServer.getSpawnPoint();
++		EnumCreatureType[] creatureTypes = EnumCreatureType.values();
++		int creatureLength = creatureTypes.length;
++
++		for (int creatureTypeIndex = 0; creatureTypeIndex < creatureLength; ++creatureTypeIndex)
++		{
++			EnumCreatureType creatureType = creatureTypes[creatureTypeIndex];
++
++			if (!creatureType.getAnimal() && wolrdServer.countEntitiesFromChunkLoader(creatureType.getCreatureClass()) <= (creatureType.getMaxNumberOfCreature() / 4.0) * chunks.size() / 9.0)
++			{
++				Iterator chunkIterator = chunks.iterator();
++				labelWhile:
++
++					while (chunkIterator.hasNext())
++					{
++
++						ChunkCoordIntPair chunkCoord = (ChunkCoordIntPair)chunkIterator.next();
++						ChunkPosition randomChunkPos = getRandomSpawningPointInChunk(wolrdServer, chunkCoord.chunkXPos, chunkCoord.chunkZPos);
++						int randomChunkPosX = randomChunkPos.x;
++						int randomChunkPosY = randomChunkPos.y;
++						int randomChunkPosZ = randomChunkPos.z;
++
++						if (!wolrdServer.isBlockNormalCube(randomChunkPosX, randomChunkPosY, randomChunkPosZ) && wolrdServer.getBlockMaterial(randomChunkPosX, randomChunkPosY, randomChunkPosZ) == creatureType.getCreatureMaterial())
++						{
++							int counterSpawn = 0;
++							int counterSpawn2 = 0;
++
++
++							while (counterSpawn2 < 3)
++							{
++								int randomPosX = randomChunkPosX;
++								int randomPosY = randomChunkPosY;
++								int randomPosZ = randomChunkPosZ;
++								byte positionVariance = 6;
++								SpawnListEntry spawnEntry = null;
++								int counterGroup = 0;
++
++								while (true)
++								{
++									if (counterGroup < 4)
++									{
++										groupLabel:
++										{
++										randomPosX += wolrdServer.rand.nextInt(positionVariance) - wolrdServer.rand.nextInt(positionVariance);
++										randomPosY += wolrdServer.rand.nextInt(1) - wolrdServer.rand.nextInt(1);
++										randomPosZ += wolrdServer.rand.nextInt(positionVariance) - wolrdServer.rand.nextInt(positionVariance);
++
++
++
++										if (canCreatureTypeSpawnAtLocation(creatureType, wolrdServer, randomPosX, randomPosY, randomPosZ))
++										{
++											float posX = (float)randomPosX + 0.5F;
++											float posY = (float)randomPosY;
++											float posZ = (float)randomPosZ + 0.5F;
++											
++											if (wolrdServer.getClosestPlayer((double)posX, (double)posY, (double)posZ, 24.0D) == null)
++											{
++												
++
++
++												if (spawnEntry == null)
++												{
++													spawnEntry = wolrdServer.spawnRandomCreature(creatureType, randomPosX, randomPosY, randomPosZ);
++
++													if (spawnEntry == null)
++													{
++														break groupLabel;
++													}
++												}
++
++												EntityLiving entity;
++
++												try
++												{
++													entity = (EntityLiving)spawnEntry.entityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {wolrdServer});
++												}
++												catch (Exception var33)
++												{
++													var33.printStackTrace();
++													return counter;
++												}
++
++												entity.setLocationAndAngles((double)posX, (double)posY, (double)posZ, wolrdServer.rand.nextFloat() * 360.0F, 0.0F);
++
++												if (entity.getCanSpawnHere() &&  wolrdServer.getBlockLightValue(randomPosX, randomPosY, randomPosZ) < 4)
++												{
++													++counterSpawn;
++													wolrdServer.spawnEntityInWorld(entity);
++													entity.setFromChunkLoader(true);
++													creatureSpecificInit(entity, wolrdServer, posX, posY, posZ);
++
++													if (counterSpawn >= entity.getMaxSpawnedInChunk())
++													{
++														continue labelWhile;
++													}
++												}
++
++												counter += counterSpawn;
++
++											}
++										}
++
++										++counterGroup;
++										continue;
++										}
++									}
++
++									++counterSpawn2;
++									break;
++								}
++							}
++						}
++					}
++			}
++		}
++		return counter;
++	}
++
++	/**
++	 * Returns whether or not the specified creature type can spawn at the specified location.
++	 */
++	public static boolean canCreatureTypeSpawnAtLocation(EnumCreatureType par0EnumCreatureType, World par1World, int par2, int par3, int par4)
++	{
++		if (par0EnumCreatureType.getCreatureMaterial() == Material.water)
++		{
++			return par1World.getBlockMaterial(par2, par3, par4).isLiquid() && par1World.getBlockMaterial(par2, par3 - 1, par4).isLiquid() && !par1World.isBlockNormalCube(par2, par3 + 1, par4);
++		}
++		else
++		{
++			int var5;
++
++			if (!par1World.doesBlockHaveSolidTopSurface(par2, par3 - 1, par4))
++			{
++				var5 = par1World.getBlockId(par2, par3 - 1, par4);
++				return var5 == Block.leaves.blockID;
++			}
++			else
++			{
++				var5 = par1World.getBlockId(par2, par3 - 1, par4);
++				return var5 != Block.bedrock.blockID && !par1World.isBlockNormalCube(par2, par3, par4) && !par1World.getBlockMaterial(par2, par3, par4).isLiquid() && !par1World.isBlockNormalCube(par2, par3 + 1, par4);
++			}
++		}
++	}
++
++	/**
++	 * determines if a skeleton spawns on a spider, and if a sheep is a different color
++	 */
++	private static void creatureSpecificInit(EntityLiving par0EntityLiving, World par1World, float par2, float par3, float par4)
++	{
++		par0EntityLiving.initCreature();
++	}
++
++	/**
++	 * Called during chunk generation to spawn initial creatures.
++	 */
++	public static void performWorldGenSpawning(World par0World, BiomeGenBase par1BiomeGenBase, int par2, int par3, int par4, int par5, Random par6Random)
++	{
++		List var7 = par1BiomeGenBase.getSpawnableList(EnumCreatureType.creature);
++
++		if (!var7.isEmpty())
++		{
++			while (par6Random.nextFloat() < par1BiomeGenBase.getSpawningChance())
++			{
++				SpawnListEntry var8 = (SpawnListEntry)WeightedRandom.getRandomItem(par0World.rand, var7);
++				int var9 = var8.minGroupCount + par6Random.nextInt(1 + var8.maxGroupCount - var8.minGroupCount);
++				int var10 = par2 + par6Random.nextInt(par4);
++				int var11 = par3 + par6Random.nextInt(par5);
++				int var12 = var10;
++				int var13 = var11;
++
++				for (int var14 = 0; var14 < var9; ++var14)
++				{
++					boolean var15 = false;
++
++					for (int var16 = 0; !var15 && var16 < 4; ++var16)
++					{
++						int var17 = par0World.getTopSolidOrLiquidBlock(var10, var11);
++
++						if (CanAnimalSpawnAtLocationDuringWorldGen(EnumCreatureType.creature, par0World, var10, var17, var11))
++						{
++							float var18 = (float)var10 + 0.5F;
++							float var19 = (float)var17;
++							float var20 = (float)var11 + 0.5F;
++							EntityLiving var21;
++
++							try
++							{
++								var21 = (EntityLiving)var8.entityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {par0World});
++							}
++							catch (Exception var23)
++							{
++								var23.printStackTrace();
++								continue;
++							}
++
++							var21.setLocationAndAngles((double)var18, (double)var19, (double)var20, par6Random.nextFloat() * 360.0F, 0.0F);
++							par0World.spawnEntityInWorld(var21);
++							creatureSpecificInit(var21, par0World, var18, var19, var20);
++							var15 = true;
++						}
++
++						var10 += par6Random.nextInt(5) - par6Random.nextInt(5);
++
++						for (var11 += par6Random.nextInt(5) - par6Random.nextInt(5); var10 < par2 || var10 >= par2 + par4 || var11 < par3 || var11 >= par3 + par4; var11 = var13 + par6Random.nextInt(5) - par6Random.nextInt(5))
++						{
++							var10 = var12 + par6Random.nextInt(5) - par6Random.nextInt(5);
++						}
++					}
++				}
++			}
++		}
++	}
++
++	public static boolean CanAnimalSpawnAtLocationDuringWorldGen(EnumCreatureType var0, World var1, int var2, int var3, int var4)
++	{
++		int var5 = var1.getBlockId(var2, var3, var4);
++
++		if (!Block.isNormalCube(var5) && !var1.getBlockMaterial(var2, var3, var4).isLiquid() && var5 != Block.leaves.blockID)
++		{
++			int var6 = var1.getBlockId(var2, var3 + 1, var4);
++
++			if (!Block.isNormalCube(var6) && var6 != Block.leaves.blockID)
++			{
++				int var7 = var1.getBlockId(var2, var3 - 1, var4);
++				return Block.isNormalCube(var7) && var7 != Block.bedrock.blockID;
++			}
++		}
++
++		return false;
++	}
+ }

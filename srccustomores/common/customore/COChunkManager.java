@@ -32,6 +32,7 @@ public class COChunkManager {
 	private Properties chunkLoaders = null;
 	
 	private HashMap<String, HashSet<ChunkCoordIntPair>> loadedChunksForDimension;
+	private HashMap<String, HashSet<ChunkCoordIntPair>> spawnableChunksForDimension;
 
 	
 	public static COChunkManager instance() {
@@ -43,6 +44,8 @@ public class COChunkManager {
 		this.server = server;
 		this.chunkLoaders = loadConfig();
 		this.loadedChunksForDimension = new HashMap<String, HashSet<ChunkCoordIntPair>>();
+		this.spawnableChunksForDimension = new HashMap<String, HashSet<ChunkCoordIntPair>>();
+
 	}
 	
 	public void load() {
@@ -53,6 +56,12 @@ public class COChunkManager {
 				String dimension = key.split(":")[0];
 				HashSet<ChunkCoordIntPair> loadedChunks = getLoadedChunksForDimension(dimension);
 				loadedChunks.addAll(getChunkCoordsForId(key));
+				
+				if (getSpawnableFromId(key)) {
+					HashSet<ChunkCoordIntPair> spawnChunks = getSpawnableChunksForDimension(dimension);
+					spawnChunks.addAll(getChunkCoordsForId(key));
+				}
+				
 			}
 		}
 		
@@ -73,6 +82,7 @@ public class COChunkManager {
 
 	public void close() {
 		this.loadedChunksForDimension = new HashMap<String, HashSet<ChunkCoordIntPair>>();
+		this.spawnableChunksForDimension = new HashMap<String, HashSet<ChunkCoordIntPair>>();
 	}
 	
 	
@@ -89,10 +99,21 @@ public class COChunkManager {
 			String dimension = id.split(":")[0];
 			HashSet<ChunkCoordIntPair> loadedChunks = getLoadedChunksForDimension(dimension);
 			loadedChunks.addAll(getChunkCoordsForId(id));
+			
+			if (getSpawnableFromId(id)) {
+				HashSet<ChunkCoordIntPair> spawnChunks = getSpawnableChunksForDimension(dimension);
+				spawnChunks.addAll(getChunkCoordsForId(id));
+			}
+			
 		} else {
 			String dimension = id.split(":")[0];
 			HashSet<ChunkCoordIntPair> loadedChunks = getLoadedChunksForDimension(dimension);
 			loadedChunks.removeAll(getChunkCoordsForId(id));
+			
+			if (getSpawnableFromId(id)) {
+				HashSet<ChunkCoordIntPair> spawnChunks = getSpawnableChunksForDimension(dimension);
+				spawnChunks.removeAll(getChunkCoordsForId(id));
+			}
 		}
 	}
 	
@@ -102,6 +123,11 @@ public class COChunkManager {
 			String dimension = id.split(":")[0];
 			HashSet<ChunkCoordIntPair> loadedChunks = getLoadedChunksForDimension(dimension);
 			loadedChunks.removeAll(getChunkCoordsForId(id));
+			
+			if (getSpawnableFromId(id)) {
+				HashSet<ChunkCoordIntPair> spawnChunks = getSpawnableChunksForDimension(dimension);
+				spawnChunks.removeAll(getChunkCoordsForId(id));
+			}
 		}
 		chunkLoaders.remove(id);
 		saveConfig(chunkLoaders);
@@ -123,6 +149,21 @@ public class COChunkManager {
 	
 	public HashSet<ChunkCoordIntPair> loadedChunksForDimension(int dimId) {
 		return getLoadedChunksForDimension(String.valueOf(dimId));
+	}
+	
+	public HashSet<ChunkCoordIntPair> spawnableChunksForDimension(int dimId) {
+		return getSpawnableChunksForDimension(String.valueOf(dimId));
+
+	}
+	
+	public Boolean coordinateIsInSpawnableChunk(int x, int y, int z, int dimId) {
+		int centerChunkX = x >> 4;
+		int centerChunkZ = z >> 4;
+		ChunkCoordIntPair chunkCoord = new ChunkCoordIntPair(centerChunkX, centerChunkZ);
+		if (spawnableChunksForDimension(dimId).contains(chunkCoord)) {
+			return true;
+		}
+		return false;
 	}
 
 	
@@ -149,12 +190,28 @@ public class COChunkManager {
 		return result;
 	}
 	
+	private Boolean getSpawnableFromId(String id) {
+		Boolean result = false;
+		String[] comps = id.split(":");
+		if (comps.length > 4) {
+			result = Boolean.parseBoolean(comps[4]);	
+		}
+		return result;
+	}
+	
 	
 	private HashSet<ChunkCoordIntPair> getLoadedChunksForDimension(String dimId) {
 		if (!this.loadedChunksForDimension.containsKey(dimId)) {
 			this.loadedChunksForDimension.put(dimId, new HashSet<ChunkCoordIntPair>());
 		}
 		return this.loadedChunksForDimension.get(dimId);
+	}
+	
+	private HashSet<ChunkCoordIntPair> getSpawnableChunksForDimension(String dimId) {
+		if (!this.spawnableChunksForDimension.containsKey(dimId)) {
+			this.spawnableChunksForDimension.put(dimId, new HashSet<ChunkCoordIntPair>());
+		}
+		return this.spawnableChunksForDimension.get(dimId);
 	}
 	
 	private File getWorldConfigFile() {
@@ -193,6 +250,4 @@ public class COChunkManager {
 	}
 
 
-	
-	
 }

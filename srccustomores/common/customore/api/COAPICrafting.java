@@ -21,6 +21,8 @@ public class COAPICrafting {
 	private static void addCraftingRecipes()
 	{
         FCRecipes.AddVanillaRecipe(new ItemStack(COAPIBlocks.chunkloader, 1), new Object[] {"XX ", "XX ", "   ", 'X', Block.cobblestone});
+        FCRecipes.AddVanillaRecipe(new ItemStack(COAPIBlocks.chunkloaderspawn, 1), new Object[] {"XXX", "XXX", "XXX", 'X', Block.stone});
+
 	}
 	
 

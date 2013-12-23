@@ -6,6 +6,7 @@ import java.util.Random;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.ChunkCoordIntPair;
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.FCAddOn;
 import net.minecraft.src.FCAddOnHandler;
 import net.minecraft.src.FCTileEntityCement;
@@ -159,6 +160,21 @@ public class CustomOre extends FCAddOn implements ITickHandler, IWorldGenerator,
 	public HashSet<ChunkCoordIntPair> loadedChunksForDimension(int dimId) {
 
 		return COChunkManager.instance().loadedChunksForDimension(dimId);
+	}
+
+	@Override
+	public Boolean shouldDespawnEntityLiving(EntityLiving entity) {
+		if (hasLoadedChunksForDimension(entity.worldObj.provider.dimensionId)) {
+			if (entity.worldObj.playerEntities == null || entity.worldObj.playerEntities.isEmpty()) {
+				return !COChunkManager.instance().coordinateIsInSpawnableChunk((int)entity.posX, (int)entity.posY, (int)entity.posZ, entity.worldObj.provider.dimensionId);
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public HashSet<ChunkCoordIntPair> spawnableChunksForDimension(int dimId) {
+		return COChunkManager.instance().spawnableChunksForDimension(dimId);
 	}
 
 	

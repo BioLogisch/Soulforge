@@ -1,0 +1,61 @@
+--- ../src_base/minecraft/net/minecraft/src/EntityLiving.java
++++ ../src/minecraft/net/minecraft/src/EntityLiving.java
+@@ -5,6 +5,8 @@
+ import java.util.Iterator;
+ import java.util.List;
+ import java.util.Random;
++
++import soulforge.utils.EventRegistry;
+ 
+ public abstract class EntityLiving extends Entity
+ {
+@@ -216,6 +218,8 @@
+ 
+     /** How long to keep a specific target entity */
+     protected int numTicksToChaseTarget = 0;
++
++    private boolean isFromChunkLoader = false;
+ 
+     public EntityLiving(World par1World)
+     {
+@@ -1920,6 +1924,9 @@
+      */
+     protected boolean canDespawn()
+     {
++    	if (this.isFromChunkLoader) {
++    		EventRegistry.shouldDespawnEntityLiving(this);
++    	}
+         return true;
+     }
+ 
+@@ -1944,7 +1951,7 @@
+                     this.setDead();
+                 }
+ 
+-                if (this.entityAge > 600 && this.rand.nextInt(800) == 0 && var8 > 1024.0D && this.canDespawn())
++                if (this.entityAge > 600 && this.rand.nextInt(800) == 0 && var8 > 1024.0D && this.canDespawn() )
+                 {
+                     this.setDead();
+                 }
+@@ -1952,6 +1959,7 @@
+                 {
+                     this.entityAge = 0;
+                 }
++            
+             }
+         }
+     }
+@@ -3214,4 +3222,13 @@
+         Vec3 var6 = var4.addVector(var5.xCoord * var1, var5.yCoord * var1, var5.zCoord * var1);
+         return this.worldObj.RayTraceBlocksWithCustomSnowHandling(var4, var6);
+     }
++    
++
++    public boolean isFromChunkLoader() {
++		return isFromChunkLoader;
++	}
++
++    public void setFromChunkLoader(boolean isFromChunkLoader) {
++		this.isFromChunkLoader = isFromChunkLoader;
++	}
+ }

@@ -28,3 +28,36 @@
          this.theProfiler.endSection();
  
          if (this.ambientTickCountdown > 0)
+@@ -2964,9 +2967,29 @@
+ 
+         for (int var3 = 0; var3 < this.loadedEntityList.size(); ++var3)
+         {
+-            Entity var4 = (Entity)this.loadedEntityList.get(var3);
+-
+-            if ((!(var4 instanceof EntityLiving) || !((EntityLiving)var4).func_104002_bU()) && par1Class.isAssignableFrom(var4.getClass()))
++            Entity entity = (Entity)this.loadedEntityList.get(var3);
++
++            if ((!(entity instanceof EntityLiving) || !((EntityLiving)entity).func_104002_bU() || !((EntityLiving)entity).isFromChunkLoader()) && par1Class.isAssignableFrom(entity.getClass()))
++            {
++                ++var2;
++            }
++        }
++
++        return var2;
++    }
++    
++    /**
++     * Counts how many entities of an entity class exist in the world. Args: entityClass
++     */
++    public int countEntitiesFromChunkLoader(Class par1Class)
++    {
++        int var2 = 0;
++
++        for (int var3 = 0; var3 < this.loadedEntityList.size(); ++var3)
++        {
++            Entity entity = (Entity)this.loadedEntityList.get(var3);
++
++            if ((entity instanceof EntityLiving) && ((EntityLiving)entity).isFromChunkLoader() && par1Class.isAssignableFrom(entity.getClass()))
+             {
+                 ++var2;
+             }

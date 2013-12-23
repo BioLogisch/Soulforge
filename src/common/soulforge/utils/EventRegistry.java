@@ -5,6 +5,7 @@ import java.util.HashSet;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.ChunkCoordIntPair;
 import net.minecraft.src.DedicatedServer;
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.FCAddOnHandler;
 import net.minecraft.src.World;
 
@@ -83,6 +84,27 @@ public class EventRegistry {
 		for (IEventHandler handler : eventhandlers)
 		{
 			result.addAll(handler.loadedChunksForDimension(dimId));
+		}
+		return result;
+	}
+	
+	public static HashSet<ChunkCoordIntPair> spawnableChunksForDimension(int dimId) {
+		HashSet<ChunkCoordIntPair> result = new HashSet<ChunkCoordIntPair>();
+		for (IEventHandler handler : eventhandlers)
+		{
+			result.addAll(handler.spawnableChunksForDimension(dimId));
+		}
+		return result;
+	}
+	
+	public static Boolean shouldDespawnEntityLiving(EntityLiving entity) {
+		Boolean result = true;
+		for (IEventHandler handler : eventhandlers)
+		{
+			result = handler.shouldDespawnEntityLiving(entity);
+			if (!result) {
+				break;
+			}
 		}
 		return result;
 	}
